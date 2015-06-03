@@ -1,0 +1,13 @@
+Array
+(
+    [image] => Array
+        (
+            [name] => Водяные лилии.jpg
+            [type] => image/jpeg
+            [tmp_name] => D:\OpenServer\userdata\temp\phpF0.tmp
+            [error] => 0
+            [size] => 83794
+        )
+
+)
+D:\OpenServer\domains\patriot\www/media/gallery/2015/03/15/55058b813567e.jpg

@@ -1,0 +1,1 @@
+<?phpnamespace Core\Library\Extension;use Core\Library\Application\Application;class LanguageObject extends \StdClass {	public function get($index) {		return $this->$index;	}}?>

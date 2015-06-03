@@ -1,0 +1,286 @@
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+html, body {
+
+}
+
+img {
+	max-width: 100%;
+}
+
+body {
+	font-family: Arial, Times New Roman, Courier;
+	font-size: 14px;
+	padding: 0px;
+	margin: 0px;
+	
+	background: #E9E9E9;
+	color: #333333;
+}
+
+/**
+* Bootstrap Alerts
+*/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+
+.container {
+
+}
+
+.float .left {
+	float: left;
+}
+
+.float .right {
+	float: right;
+}
+
+.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+#header {
+	text-align: center;
+	background: #F0F0F0;
+}
+
+.top-menu {
+	position: relative;
+	margin: 0;
+	list-style: none;
+	
+	background: #D8D7D7;
+}
+
+.top-menu li{
+	float:left;
+}
+
+.top-menu li a {
+	display: block;
+	color:#000;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	height: 46px;
+	line-height: 46px;
+	text-align: center;
+	cursor: pointer;
+	
+	display: block;
+	padding: 0 25px;
+	text-align: center;
+}
+
+.top-menu li.current a, .top-menu li a:hover{
+	color: #fff;
+	background: #438CBE;
+}
+
+.top-menu .right {
+	float: right;
+}
+
+@media screen and (max-width: 240px) {
+	.top-menu li a {
+		font-size: 0px;
+	}
+	
+	.top-menu li i {
+		font-size: 15px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.top-menu {
+		height: auto;
+		padding: 0px;
+	}
+
+	.top-menu li {
+		float: none;
+		display: block;
+		width: 100%;
+	}
+	
+	.top-menu .right {
+		float: none;
+	}
+}
+
+.breadcrumbs-list {
+	overflow: hidden;
+	width: 100%;
+}
+ 
+.breadcrumbs-list li {
+	float: left;
+	margin: 0 2em 0 0;
+	list-style: none;
+}
+ 
+.breadcrumbs-list a {
+	padding: .7em 1em .7em 2em;
+	float: left;
+	text-decoration: none;
+	color: #444;
+	background: #ddd;
+	position: relative;
+	z-index: 1;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	border-radius: .4em 0 0 .4em;
+}
+ 
+.breadcrumbs-list a:hover {
+	background: #438CBE;
+	color: #FFFFFF;
+}
+ 
+.breadcrumbs-list a::after {
+	background: #ddd;
+	content: "";
+	height: 2.5em;
+	margin-top: -1.25em;
+	position: absolute;
+	right: -1em;
+	top: 50%;
+	width: 2.5em;
+	z-index: -1;
+	transform: rotate(45deg);
+	border-radius: .4em;
+}
+ 
+.breadcrumbs-list a:hover::after {
+	background: #438CBE;
+}
+ 
+.breadcrumbs-list .current, .breadcrumbs-list .current:hover {
+	font-weight: bold;
+	background: none;
+}
+ 
+.breadcrumbs-list .current::after {
+	content: normal;
+}
+ 
+@media screen and (max-width: 240px) {
+	.breadcrumbs-list {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.breadcrumbs-list li a {
+		font-size: 12px;
+	}	
+}
+
+#footer {
+	text-align: center;
+	font-size: 15px;
+}
+
+#footer .runtime-info {
+	font-size: 11px;
+}
