@@ -139,6 +139,16 @@ class Application {
 	}
 	
     /**
+     * Завершает работу приложения
+     * @param string $status Статус
+	 *
+     * @return void
+     */
+	public function stop($status='') {
+		exit;
+	}
+	
+    /**
      * Функция для получения экземпляра класса Application
      *
      * @return Application
@@ -171,8 +181,25 @@ class Application {
 			header('Location: '.$url, true);
 		}
 	}
-	
-	public function redirectPage($url, $title='Переадресация', $message='Сейчас вы будете переадресованы', $status='info', $delay=3000, $return='auto') {
+
+	public function redirectServer($url, $return=false) {
+		$this->redirect($url, array(
+			'type' => 'server',
+			'return' => $return,
+		));
+	}
+
+    /**
+     * Производит переадресацию на указанный URL, используя страницу переадресации
+     *
+     * @param string $url URL для переадресации
+     * @param string $title Заголовок, отображаемый при переадресации
+     * @param string $message Сообщение при переадресации
+     * @param string $status Тип переадресации (error - с ошибкой, success - с успехом, info - информационный)
+     * @param int $delay Задержка перед переадресацией (в милисекундах)
+     * @param string $return Тип возврата функции (true - просто возвращает url, fasle - выполняет переадресацию, auto - при AJAX запросе становится true)
+     */
+    public function redirectPage($url, $title='Переадресация', $message='Сейчас вы будете переадресованы', $status='info', $delay=3000, $return='auto') {
 		$this->redirect($url, array(
 			'title' => $title,
 			'message' => $message,

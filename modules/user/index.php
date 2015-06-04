@@ -10,7 +10,7 @@ use Core\Library\User\Users;
 class ControllerUserIndex extends BaseController {
 	public function ActionIndex() {
 		if (Users::isLogged()) {
-			$this->ActionProfile();
+			$this->app->redirectServer($this->app->url->module('user', 'profile'));
 		}
 		else {
 			$this->ActionLogin();
@@ -28,14 +28,17 @@ class ControllerUserIndex extends BaseController {
 		$app->template->setParam('page_header', $this->lang->auth_title);
 		
 		// Если уже был авторизован, редирект на страницу профиля
-		if (Users::isLogged()) $app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+		if (Users::isLogged()) {
+			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+			$app->stop();
+		}
 
 		$answer = array(
 			'status' => true,
 			'errors' => array(),
 			'message' => $this->lang->auth_success,
 		);
-
+		
 		$app->template->addBreadcrumb($this->lang->main_page, $app->url->get('index', array(), true));
 
 		// Пришли данные
@@ -56,7 +59,7 @@ class ControllerUserIndex extends BaseController {
 				Users::authorize($user);
 				
 				// Страница редиректа
-				$answer['redirect'] = $app->redirectPage($app->url->module('users'), $this->lang->auth_title, $this->lang->auth_success);
+				$app->redirectPage($app->url->module('users', 'profile'), $this->lang->auth_title, $this->lang->auth_success);
 			}
 			catch (\Exception $error) {
 				$answer['status'] = false;
@@ -64,7 +67,7 @@ class ControllerUserIndex extends BaseController {
 				$answer['errors'][] = $error->getMessage();
 			}
 		}
-		
+
 		// Вывод представления с ответом
 		$this->viewAnswer($answer, 'login');
 	}
@@ -74,7 +77,11 @@ class ControllerUserIndex extends BaseController {
 		$app->template->page_title = $this->lang->registration_title;
 		$app->template->setParam('page_header', $this->lang->registration_title);
 		
-		if (Users::isLogged()) $app->redirectPage($app->url->module('users'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+		// Если уже был авторизован, редирект на страницу профиля
+		if (Users::isLogged()) {
+			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+			$app->stop();
+		}
 
 		$answer = array(
 			'status' => true,
@@ -124,23 +131,31 @@ class ControllerUserIndex extends BaseController {
 					$valid = false;
 				}
 				
-				if (empty($post['email'])) {
+				if (empty($post['email']) && true) {
 					$answer['errors']['email'] = $this->lang->invalid_field;
 					$valid = false;
 				}
-				
-				$user = new User(array('login'=>$this->request->post['login']));
+
+				$user = new User(array('login'=>$post['login']));
 				if ($user->exists()) {
 					$answer['errors']['login'] = $this->lang->login_exists;
 					$valid = false;
-					throw new \Exception('Пользователь с таким логином уже зарегистрирован!');
+					throw new \Exception($this->lang->login_exists);
 				}
 
+				$user = new User(array('email'=>$post['email']));
+				if ($user->exists()) {
+					$answer['errors']['email'] = $this->lang->email_exists;
+					$valid = false;
+					throw new \Exception($this->lang->email_exists);
+				}
+				
 				if (!$valid) throw new \Exception($this->lang->invalid_form);
 
-
-				
+				// Создание пользователя и его запись в базу данных
 				$user = new User();
+				
+				$user->autosave = false;
 				
 				$user->salt = Users::generateSalt();
 				$password = Users::cryptPassword($this->request->post['password'], $user->salt);
@@ -152,30 +167,26 @@ class ControllerUserIndex extends BaseController {
 				//$user->name = $this->request->post['name'];
 				//$user->sirname = $this->request->post['sirname'];
 				$user->register_date = 'NOW()';
+				
+				foreach ($fields as $field) {
+					$value = $post[$field['name']];
+					$user->setFieldData($field['id'], $value);
+				}
+				
 				$user->save();
 				
 				Users::authorize($user);
 
-				$answer['redirect'] = $app->redirectPage($app->url->module('users'), 'Регистрация', 'Вы успешно зарегистрировались! Теперь вы можете воспользоваться всеми возможностями сайта!');
+				$app->redirectPage($app->url->module('users', 'profile'), $this->lang->registration_title, $this->lang->register_success);
 			}
 			catch (\Exception $error) {
 				$answer['status'] = false;
 				$answer['message'] = $error->getMessage();
-				$answer['errors'][] = $error->getMessage();
+				//$answer['errors'][] = $error->getMessage();
 			}
 		}
 		
 		$this->viewAnswer($answer, 'register');
-	}
-	
-	public function ActionProfile() {
-		$app = $this->app;
-		if (!Users::isLogged()) $app->redirectPage($app->url->module('users'), 'Профиль', 'Сначало нужно войти!', 'error');
-		
-		$user = $app->user;
-		
-		$this->data['user'] = $user;
-		$this->view('profile');
 	}
 	
 	public function ActionLogout() {
@@ -186,7 +197,11 @@ class ControllerUserIndex extends BaseController {
 	public function ActionRegisterULogin() {
 		$app = $this->app;
 		
-		if (Users::isLogged()) $app->redirectPage($app->url->module('users'), 'Профиль', 'Вы уже входили на сайт!', 'error');
+		// Если уже был авторизован, редирект на страницу профиля
+		if (Users::isLogged()) {
+			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+			$app->stop();
+		}
 		
 		$data = file_get_contents('http://ulogin.ru/token.php?token='.$this->request->post['token'].'&host=' .$app->url->getBaseUrl());
 		$ulogin = json_decode($data, true);

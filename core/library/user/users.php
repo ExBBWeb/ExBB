@@ -19,8 +19,11 @@ class Users {
 		$app = Application::getInstance();
 		return (isset($app->request->session['user']['logged']));
 	}
-	
-	public static function authorize($user) {
+
+    /**
+     * @param $user
+     */
+    public static function authorize($user) {
 		$app = Application::getInstance();
 		$app->request->session['user']['logged'] = true;
 		$app->request->session['user']['id'] = $user->id;

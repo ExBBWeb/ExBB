@@ -16,7 +16,9 @@ class ControllerIndexIndex extends BaseController {
 		$this->app->template->addBreadcrumb($lang->page_title, $this->app->url->module('index'));
 		$this->app->template->addBreadcrumb($lang->page_title, $this->app->url->module('index'));
 		$this->app->template->addBreadcrumb($lang->page_title, $this->app->url->module('index'));
-		
+
+
+
 		$this->view('index');
 	}
 }

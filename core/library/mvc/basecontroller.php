@@ -16,8 +16,11 @@ class BaseController {
 	protected $request;
 	
 	protected $app;
+	protected $ajax;
 	
 	protected $lang;
+	
+	protected $answer;
 	
 	//protected $lang = array();
 	
@@ -37,8 +40,11 @@ class BaseController {
 		$this->db = $app->db;
 		$this->config = $app->config;
 		$this->request = $app->request;
+		$this->answer = $app->request->getAnswerType();
+		$this->isAjax = $app->request->isAjax();
 		
 		$this->app->language->loadCommon($this->lang, 'common');
+		
 		
 		$this->initialize();
 	}

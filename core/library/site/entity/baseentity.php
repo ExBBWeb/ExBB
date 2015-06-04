@@ -13,6 +13,8 @@ class BaseEntity {
 	
 	protected $table = null;
 	
+	public $autosave = true;
+	
 	public function __construct($entity_id='no', $table=null) {
 		$this->table = $table;
 		
@@ -25,10 +27,10 @@ class BaseEntity {
 			foreach ($entity_id as $name => $value) {
 				$where[] = $name.'='.$db->parse('?s', $value);
 			}
-			
+
 			$query = $db->parse('SELECT * FROM '.DB_PREFIX.$this->table.' WHERE '.implode(' AND ', $where));
+
 			$this->data =$db->getRow($query);
-			
 			$this->is_saved = true;
 		}
 		elseif (is_numeric($entity_id)) {
@@ -48,7 +50,7 @@ class BaseEntity {
 	}
 	
 	public function __destruct() {
-		if (!$this->is_saved && count($this->updated) != 0) $this->save();
+		if (!$this->is_saved && count($this->updated) != 0 && $this->autosave) $this->save();
 	}
 	
 	public function __set($name, $value) {

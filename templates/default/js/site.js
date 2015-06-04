@@ -14,7 +14,7 @@ var Site = {
 					this.findByName(element.name).addClass(errorClass).removeClass(validClass);
 				} else {
 					$(element).closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
-					$(element).closest('.form-group').find('i.fa').remove();
+					$(element).closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
 					$(element).closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
 				}
 			},
@@ -23,7 +23,7 @@ var Site = {
 					this.findByName(element.name).removeClass(errorClass).addClass(validClass);
 				} else {
 					$(element).closest('.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
-					$(element).closest('.form-group').find('i.fa').remove();
+					$(element).closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
 					$(element).closest('.form-group').append('<i class="fa fa-check fa-lg form-control-feedback"></i>');
 				}
 			},
@@ -49,9 +49,16 @@ var Site = {
 						if (Site.debug == 2) return;
 						
 						if (!data.status) {
-							Site.alerts.error(data.message);
+							$.each(data.errors, function(field,error) {
+								field = $(form).find('[name='+field+']');
+								field.closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+								field.closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
+								
+								field.closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+							});
+							Site.alerts.error(data.message, $(form));
 						}
-						else {
+						else {							
 							disableForm = (typeof (data.disableForm) != 'undefined') ? data.disableForm : true;
 							/**
 							* Если есть редирект с задержкой - показываем сообщение и делаем задержку
@@ -64,7 +71,7 @@ var Site = {
 							
 							if (typeof (data.redirect) != 'undefined') {
 								if (typeof (data.redirectDelay) != 'undefined') {
-									Site.alerts.error(data.message);
+									Site.alerts.success(data.message, $(form));
 									
 									setTimeout(function() {
 										document.location.href = data.redirect;
@@ -75,13 +82,13 @@ var Site = {
 								}
 							}
 							else {
-								Site.alerts.error(data.message);
+								Site.alerts.success(data.message, $(form));
 							}
 						}
 					},
 					
 					beforeSubmit: function() {
-						$('.alert').remove();
+						$('.alert:not(.no-close)').remove();
 					},
 					
 					data: {ajax:true, answerType: 'json'},
@@ -93,6 +100,7 @@ var Site = {
 		});
 		
 		$('body').on('click', '.alert', function() {
+			if ($(this).hasClass('no-close')) return true;
 			$(this).fadeOut(500, function() {
 				$(this).remove();
 			});
@@ -107,21 +115,25 @@ var Site = {
 		});*/
 	},
 	
-	alert: function(type, message) {
-		$('.container').prepend('<div class="alert alert-'+type+'">'+message+'</div>');
+	alert: function(type, message, container) {
+		if (typeof(container) == 'undefined') container = $('.container');
+		container.before('<div class="alert alert-'+type+'">'+message+'</div>');
 	},
 	
 	alerts: {
-		error: function (message) {
-			Site.alert('danger', message);
+		error: function (message, container) {
+			if (typeof(container) == 'undefined') container = $('.container');
+			Site.alert('danger', message, container);
 		},
 		
-		success: function (message) {
-			Site.alert('success', message);
+		success: function (message, container) {
+			if (typeof(container) == 'undefined') container = $('.container');
+			Site.alert('success', message, container);
 		},
 		
-		info: function (message) {
-			Site.alert('info', message);
+		info: function (message, container) {
+			if (typeof(container) == 'undefined') container = $('.container');
+			Site.alert('info', message, container);
 		},
 	},
 	

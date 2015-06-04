@@ -34,6 +34,7 @@ class Driver extends BaseDriver {
 		$this->link = mysqli_connect($this->config['host'], $this->config['user'], $this->config['password']) or $this->error('Ошибка подключения к серверу баз данных');
 		
 		mysqli_select_db($this->link, $this->config['db_name']) or $this->error('Ошибка выбора базы данных');
+		mysqli_set_charset ($this->link , 'UTF-8');
 	}
 	
 	public function getRow($query) {
@@ -104,6 +105,10 @@ class Driver extends BaseDriver {
 	
 	public function error($text) {
 		throw new \Exception($text.': '.mysqli_error($this->link));
+	}
+	
+	public function escape($value) {
+		return mysqli_real_escape_string($this->link, $value);
 	}
 	
 	public function parse($query, $placeholders) {

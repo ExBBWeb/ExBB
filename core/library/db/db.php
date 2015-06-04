@@ -21,7 +21,7 @@ class DB {
     }
 	
 	public function __destruct() {
-		//echo '<!--p>'.$this->driver->queries.'</p-->';
+
 	}
 
 	public function setDriver($driver) {
@@ -72,6 +72,10 @@ class DB {
 	
 	public function insertId() {
 		return $this->driver->getInsertId();
+	}
+	
+	public function escape($string) {
+		return $this->driver->escape($string);
 	}
 	
 	public function parse($query) {

@@ -28,13 +28,18 @@ img {
 }
 
 body {
-	font-family: Arial, Times New Roman, Courier;
+	background-color: #CCE3F3;
+	background-image: url("../images/background.gif");
+	background-repeat: repeat-x;
+	background-attachment: scroll;
+	background-position: center top;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
 	font-size: 14px;
-	padding: 0px;
-	margin: 0px;
-	
-	background: #E9E9E9;
 	color: #333333;
+}
+
+#content {
+	
 }
 
 /**
@@ -117,8 +122,22 @@ body {
   color: #843534;
 }
 
+.redirect-page {
+	background: #D8D7D7;
+	margin: 15px;
+}
+
+.redirect-panel {
+	padding: 10px;
+	
+}
+
 .container {
 
+}
+
+.content {
+	padding: 0px;
 }
 
 .float .left {
@@ -141,15 +160,16 @@ body {
 
 #header {
 	text-align: center;
-	background: #F0F0F0;
 }
 
+
+
 .top-menu {
+	padding: 0px;
 	position: relative;
-	margin: 0;
+	margin: 0px;
 	list-style: none;
-	
-	background: #D8D7D7;
+	background: #032942 ;
 }
 
 .top-menu li{
@@ -157,8 +177,8 @@ body {
 }
 
 .top-menu li a {
+	color: #FFFFFF;
 	display: block;
-	color:#000;
 	text-decoration: none;
 	font-family: sans-serif;
 	font-size: 13px;
@@ -167,7 +187,6 @@ body {
 	line-height: 46px;
 	text-align: center;
 	cursor: pointer;
-	
 	display: block;
 	padding: 0 25px;
 	text-align: center;
@@ -274,6 +293,35 @@ body {
 	.breadcrumbs-list li a {
 		font-size: 12px;
 	}	
+}
+
+.panel {
+	border: 5px solid #CCE3F3;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	behavior: url(border-radius.htc);
+}
+
+.panel .header {
+	background-color: #069;
+	color: #FFFFFF;
+	margin: 0px;
+	padding: 0px;
+	border: 0px none;
+	font-size: 18px;
+}
+
+.panel .header h1 {
+	margin: 0px;
+	padding: 3px 3px 3px 10px;
+	font-size: 18px;
+}
+
+.panel .body {
+	padding: 10px;
+	background-color: #EFF7FB;
 }
 
 #footer {
