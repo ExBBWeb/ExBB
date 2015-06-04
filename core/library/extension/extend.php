@@ -55,6 +55,7 @@ class Extend {
 		while ($plugin = $db->fetchAssoc($result)) {
 			$path = $plugin['name'];
 			$plugin_file = $plugin_dir.'/'.$path;
+
 			if (is_dir($plugin_dir.'/'.$path)) {
 				$plugin_file = $plugin_dir.'/'.$path.'/plugin.php';
 				if (file_exists($plugin_file)) include $plugin_file;

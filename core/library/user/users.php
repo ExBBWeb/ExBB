@@ -29,9 +29,7 @@ class Users {
 		$app->request->session['user']['logged'] = true;
 		$app->request->session['user']['id'] = $user->id;
 		$app->request->session['user']['login'] = $user->login;
-		//$app->request->session['user']['name'] = $user->name;
-		//$app->request->session['user']['sirname'] = $user->sirname;
-		
+
 		$user->last_login_date = 'NOW()';
 		$user->save();
 	}

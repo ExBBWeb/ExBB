@@ -1,5 +1,5 @@
 <?php
-namespace Core\Library\MVC;
+namespace Core\Library\Extension;
 
 use Core\Library\Application\Application;
 use Core\Library\View\Template;
@@ -38,14 +38,29 @@ class BaseWidget {
 		
 	}
 
-	public function loadLanguage($file, $lang='default') {
-		if ($lang == 'default') $lang = LANGUAGE;
-		$path = $this->path.'/language/'.$lang.'/'.$file.'.php';
-		
-		if (!file_exists($path)) return false;
-		
-		include $path;
-		if (isset($lang)) $this->lang = array_merge($this->lang, $lang);
+/**
+* Загружает языковой файл для шаблона
+*
+* @param string $file Файл локализации
+* @return void
+*/
+	public function loadLanguage($file) {
+		$lang = $this->app->language->getLanguage();
+		$path = BASE.'/widgets/'.$this->widget.'/language/'.$lang.'/'.$file.'.php';
+
+		$redefine = $this->app->language->isRedefineLanguage('widgets', $this->widget, $file);
+		if ($redefine) $path = $redefine;
+
+		return $this->app->language->load($this->lang, $path);
+	}
+	
+/**
+* Возвращает загруженную локализацию
+
+* @return object
+*/
+	public function getLanguage() {
+		return $this->lang;
 	}
 	
 	public function view($view) {

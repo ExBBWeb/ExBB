@@ -4,6 +4,9 @@ use Core\Library\User\Users;
 
 $app = Application::getInstance();
 $template = $app->template; 
+
+$template->loadLanguage('template');
+$lang = $template->getLanguage();
 ?>
 
 <?php include $template->path('blocks/header.php', true); ?>

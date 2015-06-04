@@ -1,5 +1,6 @@
 <?php
-$js_lang = 'templates/'.TEMPLATE.'/language/'.LANGUAGE.'/js/site.js';
+$language = $app->language->getLanguage();
+$js_lang = 'templates/'.TEMPLATE.'/language/'.$language.'/js/site.js';
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@ $js_lang = 'templates/'.TEMPLATE.'/language/'.LANGUAGE.'/js/site.js';
 		<script type="text/javascript">
 		$(document).ready(function() {
 			Site.setUrl("<?php echo BASE_URL; ?>");
-			Site.setLanguage("<?php echo LANGUAGE; ?>", "<?php echo $js_lang; ?>");
+			Site.setLanguage("<?php echo $language; ?>", "<?php echo $js_lang; ?>");
 		});
 		</script>
 		

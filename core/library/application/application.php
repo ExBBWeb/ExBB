@@ -81,15 +81,13 @@ class Application {
 		
 		$this->config->setOption('redirect_type', 'client', true);
 		
-		define('LANGUAGE', $this->config->getOption($section.'_language'));
+		//define('LANGUAGE', $this->config->getOption($section.'_language'));
 		define('BASE_URL', $this->config->getOption('url'));
 		define('TEMPLATE', $this->config->getOption($section.'_template'));
 		
 		$this->language = Language::getInstance();
-		$this->language->setLanguage(LANGUAGE);
+		$this->language->setLanguage($this->config->getOption($section.'_language'));
 
-		include_once ROOT.'/core/functions/language.php';
-		
 		$this->template = Template::getInstance();
 		$this->template->setUrl($this->config->getOption('url'));
 		$this->template->setTemplate($this->config->getOption($section.'_template'));
@@ -111,7 +109,7 @@ class Application {
 		
 		$this->router->setUrl($url);
 		
-		Extend::setAction('after_core_init', array('app'=>$this));
+		Extend::setAction('after_core_init');
 
 		$this->router->parse();
 

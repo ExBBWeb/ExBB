@@ -35,7 +35,7 @@
 
 	<?php foreach ($fields as $field) : ?>
 	<div class="form-group<?php if (isset($answer['errors'][$field['name']])) echo ' has-error'; ?>">
-		<label for="<?php echo $field['name']; ?>" class="control-label"><?php echo $field['options']['title'][LANGUAGE]; ?><?php if ($field['options']['required']) echo ' <i class="fa fa-asterisk"></i>'; ?></label>
+		<label for="<?php echo $field['name']; ?>" class="control-label"><?php echo $field['options']['title'][$language]; ?><?php if ($field['options']['required']) echo ' <i class="fa fa-asterisk"></i>'; ?></label>
 		<input type="text" class="form-control" name="<?php echo $field['name']; ?>" value="" id="<?php echo $field['name']; ?>" placeholder="<?php echo $field['title']; ?>"<?php if ($field['options']['required']) echo ' data-rule-required="true"'; ?>>
 		<?php if (isset($answer['errors'][$field['name']])) echo '<span class="help-block">'.$answer['errors'][$field['name']].'</span>'; ?>
 	</div>

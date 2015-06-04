@@ -97,13 +97,13 @@ class BaseController {
 	}
 	
 	public function loadLanguage($file) {
-		$lang = LANGUAGE;
+		$lang = $this->app->language->getLanguage();
 		$path = $this->path.'/language/'.$lang.'/'.$file.'.php';
 		
 		$redefine = $this->app->language->isRedefineLanguage('modules', $this->module, $file);
 		if ($redefine) $path = $redefine;
 
-		$this->app->language->load($this->lang, $path);
+		return $this->app->language->load($this->lang, $path);
 	}
 	
 	public function getLanguage() {

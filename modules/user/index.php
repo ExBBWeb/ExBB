@@ -96,6 +96,8 @@ class ControllerUserIndex extends BaseController {
 		$fields = Users::getUserFieldsByGroup($this->config->getOption('default_group_id'));
 		$this->data['fields'] = $fields;
 
+		$this->data['language'] = $this->app->language->getLanguage();
+		
 		if (isset($this->request->post['process'])) {
 			try {
 				$post = $this->request->post;
@@ -207,6 +209,11 @@ class ControllerUserIndex extends BaseController {
 	
 	public function ActionRegisterULogin() {
 		$app = $this->app;
+		
+		$app->template->page_title = $this->lang->auth_title;
+		$app->template->setParam('page_header', $this->lang->auth_title);
+		$app->template->addBreadcrumb($this->lang->main_page, $app->url->module('index'), false);
+		$app->template->addBreadcrumb($this->lang->auth_title, $app->url->module('user', 'index', 'login'), true);
 		
 		// Если уже был авторизован, редирект на страницу профиля
 		if (Users::isLogged()) {

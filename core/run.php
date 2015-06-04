@@ -3,6 +3,7 @@
 function __autoload($class) {
   // convert namespace to full file path
   $class = str_replace('\\', '/', strtolower($class)) . '.php';
+
   require_once(BASE.'/'.$class);
 }
 

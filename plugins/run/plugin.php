@@ -1,0 +1,22 @@
+<?php
+namespace Extension\Plugin;
+
+use Core\Library\Extension\BasePlugin;
+
+class PluginRuntime extends BasePlugin {
+	// Для корректного подключения языков здесь должно находиться название папки плагина
+	protected $plugin = 'run';
+	
+	public function run() {
+		// В функции run плагина нельзя загружать язык, но это можно сделать при наступлении события AfterCoreInit
+		$this->setHandler('after_core_init', array($this, 'AfterCoreInit'));
+	}
+	
+	public function AfterCoreInit() {
+		$this->loadLanguage('lang');
+	}
+}
+
+// Раскомментировать эту строку, когда нужно включить плагин
+//BasePlugin::addPluginObject('run', new PluginRuntime(dirname(__FILE__)));
+?>
