@@ -31,7 +31,7 @@ class User extends BaseEntity {
 			$index = array_shift($keys);
 		}
 		
-		if (isset($this->fieldsData[$field_id][$index])) {
+		if (isset($this->fieldsData[$field_id][$index]) && !$this->is_new) {
 			$this->fieldsDataUpdated[$field_id][$index] = 1;
 		}
 		else {
@@ -122,7 +122,7 @@ class User extends BaseEntity {
 	
 	public function __destruct() {
 		parent::__destruct();
-		$this->saveFields();
+		//$this->saveFields();
 	}
 }
 ?>

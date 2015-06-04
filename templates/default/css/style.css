@@ -228,59 +228,45 @@ body {
 	}
 }
 
+.breadcrumbs {
+	background: #DDE9F7;
+	border: 2px solid #CCE3F3;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	behavior: url(border-radius.htc);
+	
+	margin: 10px 0px;
+	padding: 2px;
+}
+
 .breadcrumbs-list {
 	overflow: hidden;
 	width: 100%;
+	margin: 0px;
+	padding: 0px 10px;
 }
  
 .breadcrumbs-list li {
 	float: left;
-	margin: 0 2em 0 0;
 	list-style: none;
+	list-style-type: none;
 }
+
  
 .breadcrumbs-list a {
-	padding: .7em 1em .7em 2em;
-	float: left;
 	text-decoration: none;
-	color: #444;
-	background: #ddd;
+	color: #000;
 	position: relative;
 	z-index: 1;
-	text-shadow: 0 1px 0 rgba(255,255,255,.5);
-	border-radius: .4em 0 0 .4em;
+	
+	margin: 3px 7px;
+
 }
  
 .breadcrumbs-list a:hover {
-	background: #438CBE;
-	color: #FFFFFF;
-}
- 
-.breadcrumbs-list a::after {
-	background: #ddd;
-	content: "";
-	height: 2.5em;
-	margin-top: -1.25em;
-	position: absolute;
-	right: -1em;
-	top: 50%;
-	width: 2.5em;
-	z-index: -1;
-	transform: rotate(45deg);
-	border-radius: .4em;
-}
- 
-.breadcrumbs-list a:hover::after {
-	background: #438CBE;
-}
- 
-.breadcrumbs-list .current, .breadcrumbs-list .current:hover {
-	font-weight: bold;
-	background: none;
-}
- 
-.breadcrumbs-list .current::after {
-	content: normal;
+	color: #006699;
 }
  
 @media screen and (max-width: 240px) {

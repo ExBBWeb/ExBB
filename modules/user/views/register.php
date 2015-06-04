@@ -45,8 +45,8 @@
 	
 	<br><br>
 	<div>
-		<a href="<?php echo $url->module('users', 'index', 'login'); ?>" class="btn btn-success"><?php echo $lang->authentication; ?></a>
-		<a href="<?php echo $url->module('users', 'index', 'forgot'); ?>" class="btn btn-danger"><?php echo $lang->forgot_pass; ?></a>
+		<a href="<?php echo $url->module('user', 'index', 'login'); ?>" class="btn btn-success"><?php echo $lang->authentication; ?></a>
+		<a href="<?php echo $url->module('user', 'index', 'forgot'); ?>" class="btn btn-danger"><?php echo $lang->forgot_pass; ?></a>
 	</div>
 	
 </form>

@@ -2,6 +2,7 @@
 namespace Core\Library\User;
 
 use Core\Library\Application\Application;
+use Core\Library\Site\Entity\User;
 
 class Users {
 	public static function cryptPassword($password, $salt) {
@@ -32,6 +33,7 @@ class Users {
 		//$app->request->session['user']['sirname'] = $user->sirname;
 		
 		$user->last_login_date = 'NOW()';
+		$user->save();
 	}
 	
 	public static function logout() {
@@ -58,6 +60,11 @@ class Users {
 		}
 		
 		return $fields;
+	}
+	
+	public static function userExistsByLogin($login) {
+		$user = new User(array('login'=>$login));
+		return $user->exists();
 	}
 }
 ?>

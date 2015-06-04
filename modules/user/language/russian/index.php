@@ -14,6 +14,10 @@ $lang->authentication = 'Вход';
 $lang->auth_success = 'Вы успешно вошли';
 $lang->register_success = 'Вы успешно зарегистрировались! Теперь вы можете воспользоваться всеми возможностями сайта!';
 $lang->you_logged = 'Вы уже авторизованы';
+$lang->ulogin_token_error = 'Ошибка входа ULogin. Попробуйте ещё раз';
+
+$lang->logout_title = 'Выход';
+$lang->logout_success = 'Вы покинули сайт';
 
 $lang->empty_login = 'Вы не ввели логин';
 $lang->empty_pass = 'Вы не ввели пароль';
