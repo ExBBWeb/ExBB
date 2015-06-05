@@ -132,6 +132,14 @@ body {
 	
 }
 
+.no-padding {
+	padding: 0px;
+}
+
+.no-margin {
+	margin: 0px;
+}
+
 .container {
 
 }
@@ -281,6 +289,22 @@ body {
 	}	
 }
 
+.pd-10 {
+	padding: 10px;
+}
+
+.pd-5 {
+	padding: 5px;
+}
+
+.pd-15 {
+	padding: 15px;
+}
+
+.pd-7 {
+	padding: 7px;
+}
+
 .panel {
 	border: 5px solid #CCE3F3;
 	-moz-border-radius: 10px;
@@ -308,6 +332,112 @@ body {
 .panel .body {
 	padding: 10px;
 	background-color: #EFF7FB;
+}
+
+.panel .body-no-padding {
+	background-color: #EFF7FB;
+}
+
+.vertical-menu {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	background: #032942;
+}
+
+.vertical-menu li {
+	list-style: none;
+	list-style-type: none;
+	display: block;
+	margin: 0px;
+	padding: 0px;
+	color: #FFF;
+}
+
+.vertical-menu li a {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	height: 46px;
+	line-height: 46px;
+	cursor: pointer;
+	display: block;
+	text-align: center;
+}
+
+.vertical-menu li.current a, .vertical-menu li a:hover{
+	color: #fff;
+	background: #438CBE;
+}
+
+.vertical-menu .head a {
+	color: #FF0000;
+	text-transform: uppercase;
+}
+
+.vertical-menu .head a:hover{
+	color: #FF0000;
+	background: #032942;
+}
+
+.tabs {
+	display: block;
+	width: 100%;
+}
+.tabs > div {
+	padding-top:10px;
+}
+.tabs ul {
+	margin:0px;
+	padding:0px;
+	background:#032942;
+}
+.tabs ul:after {
+	content:"";
+	display:block;
+	clear:both;
+	height:5px;
+	background:#438CBE;
+}
+.tabs ul li {
+	margin:0px;
+	padding:0px;
+	cursor:pointer;
+	display:block;
+	float:left;
+	padding:10px 15px;
+	background:#032942;
+	color:#FFFFFF;
+	border-right: 1px solid #006699;
+}
+.tabs ul li.active, .tabs ul li.active:hover {
+	background:#438CBE;
+	color:#fff;
+}
+.tabs ul li:hover {
+	background:#438CBE;
+}
+
+.profile .body-no-padding {
+	background: #032942;
+}
+
+.profile .profile-body {
+	background: #EFF7FB;
+}
+
+.profile .profile-body p {
+	margin: 3px;
+}
+
+.profile .profile-avatar {
+	text-align: center;
+}
+
+.profile h3 {
+	color: #032942;
 }
 
 #footer {

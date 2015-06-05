@@ -1,7 +1,9 @@
 <?php
 namespace Core\Library\Site\Entity;
 
+use Core\Library\Application\Application;
 use Core\Library\DB\DB;
+
 
 class User extends BaseEntity {
 	protected $fieldsData = array();
@@ -18,7 +20,7 @@ class User extends BaseEntity {
 			$result = $db->query('SELECT * FROM '.DB_PREFIX.'users_fields_data WHERE user_id='.$this->data['id']);
 			
 			while ($row = $db->fetchAssoc($result)) {
-				$this->fieldsData[$row['field_id']][$row['id']] = $row;
+				$this->fieldsData[$row['field_id']][$row['id']] = $row['value'];
 			}
 		}
 	}
@@ -118,6 +120,15 @@ class User extends BaseEntity {
 	public function save() {
 		parent::save();
 		$this->saveFields();
+	}
+	
+	public function getAvatar() {
+		if (empty($this->data['avatar'])) $this->data['avatar'] = Application::getInstance()->config->getOption('default_user_avatar');
+		return 'uploads/avatars/'.$this->data['avatar'];
+	}
+	
+	public function setAvatar($avatar) {
+		$this->data['avatar'] = str_replace('uploads/avatars/', '', $avatar);
 	}
 	
 	public function __destruct() {

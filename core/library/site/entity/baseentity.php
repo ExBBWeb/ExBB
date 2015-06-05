@@ -61,7 +61,7 @@ class BaseEntity {
 		$method = 'set'.$name;
 	
 		if (method_exists($this, $method)) {
-			return $this->$method($name, $value);
+			return $this->$method($value);
 		}
 		
 		$this->data[$name] = $value;

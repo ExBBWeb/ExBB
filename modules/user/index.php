@@ -25,8 +25,7 @@ class ControllerUserIndex extends BaseController {
 	public function ActionLogin() {
 		$app = $this->app;
 		$app->template->page_title = $this->lang->auth_title;
-		$app->template->setParam('page_header', $this->lang->auth_title);
-		
+
 		// Если уже был авторизован, редирект на страницу профиля
 		if (Users::isLogged()) {
 			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
@@ -76,8 +75,7 @@ class ControllerUserIndex extends BaseController {
 	public function ActionRegister() {
 		$app = $this->app;
 		$app->template->page_title = $this->lang->registration_title;
-		$app->template->setParam('page_header', $this->lang->registration_title);
-		
+
 		$app->template->addBreadcrumb($this->lang->main_page, $app->url->module('index'), false);
 		$app->template->addBreadcrumb($this->lang->registration_title, $app->url->module('user', 'index', 'register'), true);
 
@@ -135,7 +133,7 @@ class ControllerUserIndex extends BaseController {
 					$valid = false;
 				}
 				
-				if (empty($post['email']) && true) {
+				if (empty($post['email']) && preg_match("|^[-0-9a-z_\.]+@[-0-9a-z_^\.]+\.[a-z]{2,6}$|i", $post['email'])) {
 					$answer['errors']['email'] = $this->lang->invalid_field;
 					$valid = false;
 				}
@@ -194,6 +192,8 @@ class ControllerUserIndex extends BaseController {
 	}
 	
 	public function ActionLogout() {
+		//$this->loadLanguage('index');
+		$this->app->template->page_title = $this->lang->logout_title;
 		$this->app->template->addBreadcrumb($this->lang->main_page, $this->app->url->module('index'), false);
 		$this->app->template->addBreadcrumb($this->lang->logout_title, $this->app->url->module('user', 'index', 'logout'), true);
 		
@@ -211,7 +211,6 @@ class ControllerUserIndex extends BaseController {
 		$app = $this->app;
 		
 		$app->template->page_title = $this->lang->auth_title;
-		$app->template->setParam('page_header', $this->lang->auth_title);
 		$app->template->addBreadcrumb($this->lang->main_page, $app->url->module('index'), false);
 		$app->template->addBreadcrumb($this->lang->auth_title, $app->url->module('user', 'index', 'login'), true);
 		

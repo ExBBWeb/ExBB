@@ -12,12 +12,11 @@ $js_lang = 'templates/'.TEMPLATE.'/language/'.$language.'/js/site.js';
 		<link rel="stylesheet" href="<?php $template->url('css/bootstrap.min.css'); ?>" type="text/css">
 		<link rel="stylesheet" href="<?php $template->url('css/bootstrap-theme.min.css'); ?>" type="text/css">
 		<link rel="stylesheet" href="<?php $template->url('css/style.css'); ?>" type="text/css">
-		<link rel="stylesheet" href="<?php $template->url('css/jquery.formstyler.css'); ?>" type="text/css">
 
 		<script type="text/javascript" src="<?php $template->url('js/jquery-1.11.2.min.js'); ?>"></script>
 		<script type="text/javascript" src="<?php $template->url('js/jquery.form.min.js'); ?>"></script>
 		<script type="text/javascript" src="<?php $template->url('js/jquery.validate.min.js'); ?>"></script>
-		<script type="text/javascript" src="<?php $template->url('js/jquery.formstyler.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php $template->url('js/jquery.lighttabs.js'); ?>"></script>
 		<script type="text/javascript" src="<?php $template->url('js/site.js'); ?>"></script>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">

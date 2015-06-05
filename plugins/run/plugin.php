@@ -9,14 +9,14 @@ class PluginRuntime extends BasePlugin {
 	
 	public function run() {
 		// В функции run плагина нельзя загружать язык, но это можно сделать при наступлении события AfterCoreInit
-		$this->setHandler('after_core_init', array($this, 'AfterCoreInit'));
+		$this->setHandler('user_profile_menu_build', array($this, 'menu'));
 	}
 	
-	public function AfterCoreInit() {
-		$this->loadLanguage('lang');
+	public function menu($menu) {
+
 	}
 }
 
 // Раскомментировать эту строку, когда нужно включить плагин
-//BasePlugin::addPluginObject('run', new PluginRuntime(dirname(__FILE__)));
+BasePlugin::addPluginObject('run', new PluginRuntime(dirname(__FILE__)));
 ?>

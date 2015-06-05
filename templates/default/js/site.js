@@ -38,65 +38,68 @@ var Site = {
 			}
 		});
 		
-		$('form[data-ajax-form]').validate({
-			submitHandler: function(form) {
-				submitDataType = (Site.debug == 2) ? 'html' : 'json';
-				
-				$(form).ajaxSubmit({
-					dataType: submitDataType,
-					success: function(data) {
-						if (Site.debug) console.log(data);
-						if (Site.debug == 2) return;
-						
-						if (!data.status) {
-							$.each(data.errors, function(field,error) {
-								field = $(form).find('[name='+field+']');
-								field.closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
-								field.closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
-								
-								field.closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
-							});
-							Site.alerts.error(data.message, $(form));
-						}
-						else {							
-							disableForm = (typeof (data.disableForm) != 'undefined') ? data.disableForm : true;
-							/**
-							* Если есть редирект с задержкой - показываем сообщение и делаем задержку
-							* Если есть редирект без задержки - далаем сразу, без сообщения
-							* Если нет редиректа, показываем сообщение
+		$('form[data-ajax-form]').each(function() {
+			$(this).validate({
+				submitHandler: function(form) {
+					submitDataType = (Site.debug == 2) ? 'html' : 'json';
+
+					$(form).ajaxSubmit({
+						dataType: submitDataType,
+						success: function(data) {
+							if (Site.debug) console.log(data);
+							if (Site.debug == 2) return;
 							
-							* скрываем форму, если нет параметра disableForm
-							*/
-							if (disableForm) $(form).fadeOut(700);
-							
-							if (typeof (data.redirect) != 'undefined') {
-								if (typeof (data.redirectDelay) != 'undefined') {
-									Site.alerts.success(data.message, $(form));
+							if (!data.status) {
+								$.each(data.errors, function(field,error) {
+									field = $(form).find('[name='+field+']');
+									field.closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
+									field.closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
 									
-									setTimeout(function() {
+									field.closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+								});
+								Site.alerts.error(data.message, $(form));
+							}
+							else {							
+								disableForm = (typeof (data.disableForm) != 'undefined') ? data.disableForm : true;
+								/**
+								* Если есть редирект с задержкой - показываем сообщение и делаем задержку
+								* Если есть редирект без задержки - далаем сразу, без сообщения
+								* Если нет редиректа, показываем сообщение
+								
+								* скрываем форму, если нет параметра disableForm
+								*/
+								if (disableForm) $(form).fadeOut(700);
+								
+								if (typeof (data.redirect) != 'undefined') {
+									if (typeof (data.redirectDelay) != 'undefined') {
+										Site.alerts.success(data.message, $(form));
+										
+										setTimeout(function() {
+											document.location.href = data.redirect;
+										}, data.redirectDelay);
+									}
+									else {
 										document.location.href = data.redirect;
-									}, data.redirectDelay);
+									}
 								}
 								else {
-									document.location.href = data.redirect;
+									Site.alerts.success(data.message, $(form));
 								}
 							}
-							else {
-								Site.alerts.success(data.message, $(form));
-							}
-						}
-					},
-					
-					beforeSubmit: function() {
-						$('.alert:not(.no-close)').remove();
-					},
-					
-					data: {ajax:true, answerType: 'json'},
-				});
-			},
-			
-			ignore: ".ignore, :hidden",
-			focusInvalid: true,
+						},
+						
+						beforeSubmit: function() {
+							$('.alert:not(.no-close)').remove();
+						},
+						
+						data: {ajax:true, answerType: 'json'},
+					});
+				},
+				
+				ignore: ".ignore, :hidden",
+				focusInvalid: true,
+			});
+		
 		});
 		
 		$('body').on('click', '.alert', function() {
@@ -106,13 +109,8 @@ var Site = {
 			});
 		});
 		
-		//$('input, select, textarea').styler();
-		
-		/**$('form[data-ajax-form]').validate({
-			submitHandler: function(form) {
-				$(form).ajaxSubmit();
-			},
-		});*/
+
+		$(".tabs").lightTabs();
 	},
 	
 	alert: function(type, message, container) {

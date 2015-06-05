@@ -32,11 +32,13 @@ class Extend {
 		self::$handlers = array();
 	}
 	
-	public static function setAction($action, $data=array()) {
+	public static function setAction($action) {
 		if (!isset(self::$handlers[$action])) return false;
 		
+		$args = array_slice(func_get_args(), 1);
+
 		foreach (self::$handlers[$action] as $handler) {
-			call_user_func($handler, $data);
+			call_user_func_array($handler, $args);
 		}
 		
 		return true;

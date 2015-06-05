@@ -72,6 +72,8 @@ class Application {
 		$this->db = DB::getInstance();
 		$this->db->setDriver($driver);
 
+		include_once ROOT.'/core/functions/extend.php';
+		
 		Extend::loadPlugins($section);
 		Extend::setAction('before_core_init');
 	}
@@ -168,10 +170,11 @@ class Application {
 		if ($options['return'] == 'auto' && $this->request->getAnswerType() != 'page' || $options['return'] === true) {
 			return $url;
 		}
-
+		
 		if ($options['type'] == 'client') {
 			$options['link'] = $url;
 			$this->template->setData($options);
+
 			$this->template->render(false, 'redirect');
 			$this->kill();
 		}

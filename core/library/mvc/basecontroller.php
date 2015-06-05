@@ -22,6 +22,8 @@ class BaseController {
 	
 	protected $answer;
 	
+	protected $autoload_css = false;
+	protected $autoload_js = false;
 	//protected $lang = array();
 	
 	/**
@@ -45,6 +47,16 @@ class BaseController {
 		
 		$this->app->language->loadCommon($this->lang, 'common');
 		
+		
+		if ($this->autoload_css) {
+			$this->app->template->addStyleSheet($this->app->url->getBaseUrl().'/modules/'.$this->module.'/css/module.css');
+		}
+
+		if ($this->autoload_js) {
+			$this->app->template->addStyleSheet($this->app->url->getBaseUrl().'/modules/'.$this->module.'/js/module.js');
+		}
+
+		$this->data['module'] = $module;
 		
 		$this->initialize();
 	}
@@ -110,7 +122,7 @@ class BaseController {
 		return $this->lang;
 	}
 	
-	public function view($view, $template_file='template') {
+	public function view($view, $template_file='template', $return=false) {
 		$this->data['lang'] = $this->lang;
 		$template = $this->app->template;
 		
@@ -121,7 +133,21 @@ class BaseController {
 		$redefine = $template->isRedefineView('modules', $this->module, $view);
 		if ($redefine) $path = $redefine;
 
-		$template->render($path, $template_file);
+		if (!$return) {
+			$template->render($path, $template_file);
+		}
+		else return $template->render($path, $template_file, false, true);
+	}
+	
+	public function getViewPath($view) {
+		
+		
+		$path = $this->path.'/views/'.$view.'.php';
+		
+		$redefine = $this->app->template->isRedefineView('modules', $this->module, $view);
+		if ($redefine) $path = $redefine;
+		
+		return $path;
 	}
 	
 	public function viewAnswer($answer, $view='', $template_file='template', $answerType=false) {

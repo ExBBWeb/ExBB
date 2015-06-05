@@ -10,4 +10,7 @@ $lang->invalid_form = 'Форма заполнена неправильно';
 $lang->invalid_field = 'Поле заполнено неправильно';
 
 $lang->you_not_logged = 'Вы не авторизованы!';
+$lang->save = 'Сохранить';
+$lang->cancel = 'Отменить';
+$lang->apply = 'Применить';
 ?>
