@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-2 profile-avatar">
 		<p><strong><?php echo $user->login; ?></strong></p>
-		<p><img src="<?php echo $baseurl.'/'.$user->avatar; ?>" class="avatar-image" alt="<?php echo $user->login; ?>"></p>
+		<p><img src="<?php echo $baseurl.'/uploads/avatars/'.$user->avatar; ?>" class="avatar-image" alt="<?php echo $user->login; ?>"></p>
 	</div>
 	<div class="col-md-10 profile-info">
 		<h3>Личная информация</h3>

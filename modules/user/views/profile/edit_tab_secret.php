@@ -1,3 +1,7 @@
+<?php if ($edit_tab ==  'secret' && isset($answer['status']) && !$answer['status']) : ?>
+	<div class="alert alert-danger"><?php echo $answer['message']; ?></div>
+<?php endif; ?>		
+
 <form action="<?php echo $url->module('user', 'profile', 'changepassword'); ?>" method="POST" data-ajax-form>
 	<input type="hidden" name="process" value="1">
 	<div class="form-group<?php if (isset($answer['errors']['password'])) echo ' has-error'; ?>">

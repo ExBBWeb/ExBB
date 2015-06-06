@@ -123,14 +123,11 @@ class User extends BaseEntity {
 	}
 	
 	public function getAvatar() {
-		if (empty($this->data['avatar'])) $this->data['avatar'] = Application::getInstance()->config->getOption('default_user_avatar');
-		return 'uploads/avatars/'.$this->data['avatar'];
+		if (empty($this->data['avatar'])) return Application::getInstance()->config->getOption('default_user_avatar');
+		
+		return $this->data['avatar'];
 	}
-	
-	public function setAvatar($avatar) {
-		$this->data['avatar'] = str_replace('uploads/avatars/', '', $avatar);
-	}
-	
+
 	public function __destruct() {
 		parent::__destruct();
 		//$this->saveFields();

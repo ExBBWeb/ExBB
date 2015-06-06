@@ -10,6 +10,8 @@ var Site = {
 		// override jquery validate plugin defaults
 		$.validator.setDefaults({
 			highlight: function(element) {
+				$(element).closest('.form-group').find('.ajax-form-error').remove();
+				
 				if (element.type === "radio") {
 					this.findByName(element.name).addClass(errorClass).removeClass(validClass);
 				} else {
@@ -19,6 +21,8 @@ var Site = {
 				}
 			},
 			unhighlight: function(element) {
+				$(element).closest('.form-group').find('.ajax-form-error').remove();
+				
 				if (element.type === "radio") {
 					this.findByName(element.name).removeClass(errorClass).addClass(validClass);
 				} else {
@@ -51,11 +55,13 @@ var Site = {
 							
 							if (!data.status) {
 								$.each(data.errors, function(field,error) {
+									$(form).find('.ajax-form-error').remove();
 									field = $(form).find('[name='+field+']');
 									field.closest('.form-group').removeClass('has-success has-feedback').addClass('has-error has-feedback');
 									field.closest('.form-group').find('i.fa-exclamation, i.fa-check').remove();
 									
 									field.closest('.form-group').append('<i class="fa fa-exclamation fa-lg form-control-feedback"></i>');
+									field.after('<span class="help-block ajax-form-error">'+error+'</span>');
 								});
 								Site.alerts.error(data.message, $(form));
 							}

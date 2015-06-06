@@ -2,6 +2,7 @@
 $lang->auth_title = 'Вход на сайт';
 $lang->profile_title = 'Профиль';
 $lang->profile_page= 'Профиль';
+$lang->profile_edit = 'Редактировать';
 
 $lang->your_login = 'Ваш логин';
 $lang->enter_your_login = 'Введите ваш логин';
@@ -9,6 +10,19 @@ $lang->your_pass = 'Ваш пароль';
 $lang->enter_your_pass = 'Введите ваш пароль';
 $lang->your_email = 'Ваш E-mail';
 $lang->enter_your_email = 'Введите ваш E-mail';
+$lang->select_default_avatar = 'Выберите аватар или загрузите собственный';
+$lang->upload_avatar = 'Выберите аватар для загрузки';
+$lang->invalid_image_format = 'Этот формат изображений не разрешён для загрузки!';
+$lang->invalid_image_size = 'Высота/ширина изображения больше разрешённой';
+$lang->invalid_image_file_size = 'Размер файла слишком большой';
+$lang->avatar_upload_error = 'Произошла ошибка загрузки аватара! Попробуйте ещё раз';
+$lang->upload_avatar_success = 'Аватар успешно изменён!';
+$lang->edit_signature_success = 'Подпись успешно отредактирована';
+$lang->your_signature = 'Ваша подпись';
+$lang->enter_your_signature = 'Введите вашу подпись';
+$lang->long_signature = 'Количество символов в вашей подписи превышает допустимое!';
+$lang->many_signature_strings = 'Слишком много строк в подписи';
+$lang->edit_signature_success = 'Ваша подпись успешно отредактирована';
 
 $lang->menu = 'Меню';
 $lang->menu_profile_view = 'Мой профиль';
