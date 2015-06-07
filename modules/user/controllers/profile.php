@@ -7,6 +7,8 @@ use Core\Library\Application\Application;
 use Core\Library\Site\Entity\User;
 use Core\Library\User\Users;
 
+use Core\Classes\Image;
+
 class ControllerUserProfile extends BaseController {
 	protected $user;
 
@@ -25,7 +27,7 @@ class ControllerUserProfile extends BaseController {
 		$this->data['tab_content'] = $this->getTab('index');
 		$this->view('profile');
 	}
-	
+
 	public function ActionEdit($answer=false) {
 		$app = $this->app;
 		$app->template->addBreadcrumb($this->lang->profile_page, $app->url->module('user', 'profile', 'index'), false);
@@ -225,7 +227,7 @@ class ControllerUserProfile extends BaseController {
 							}
 						}
 					}
-					
+
 					$max_width = $this->app->config->getOption('user_avatar_max_width');
 					$max_height = $this->app->config->getOption('user_avatar_max_height');
 					$max_kb_size = $this->app->config->getOption('user_avatar_max_size');
@@ -246,7 +248,7 @@ class ControllerUserProfile extends BaseController {
 					$unicname = uniqid().'.'.$type;
 
 					$path = $avatar_dir.$unicname;
-					
+
 					if(!is_uploaded_file($avatar['tmp_name'])) {
 						$answer['errors']['avatar'] = $this->lang->avatar_upload_error;
 						throw new \Exception($this->lang->invalid_form);
@@ -260,6 +262,15 @@ class ControllerUserProfile extends BaseController {
 					if (file_exists(ROOT.'/uploads/avatars/'.$user->avatar) && !stristr($user->avatar, 'default') && $user->avatar != 'uploads/avatars/'.$this->app->config->getOption('default_user_avatar')) {
 						unlink(ROOT.'/uploads/avatars/'.$user->avatar);
 					}
+					
+					$resize_x = $this->app->config->getOption('user_avatar_resize_x');
+					$resize_y = $this->app->config->getOption('user_avatar_resize_y');
+					
+					$image = new Image(ROOT.'/uploads/avatars/'.$unicname);
+					$image->resize($resize_x, $resize_y, Image::RESIZE_USE_WIDTH);
+					$image->crop($resize_x, $resize_y);
+					
+					$image->save();
 					
 					$user->avatar = $unicname;
 				}
