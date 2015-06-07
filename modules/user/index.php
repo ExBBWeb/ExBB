@@ -49,7 +49,7 @@ class ControllerUserIndex extends BaseController {
 				
 				// Провека на существование пользователя с таким логином
 				$user = new User(array('login'=>$this->request->post['login']));
-				if (!$user->exists()) throw new \Exception($this->lang->incorrect_login);
+				if (!$user->exists() || $user->id == 0) throw new \Exception($this->lang->incorrect_login);
 				
 				// Проверка на правильность пароля
 				$password = Users::cryptPassword($this->request->post['password'], $user->salt);
@@ -213,7 +213,7 @@ class ControllerUserIndex extends BaseController {
 		$app->template->page_title = $this->lang->auth_title;
 		$app->template->addBreadcrumb($this->lang->main_page, $app->url->module('index'), false);
 		$app->template->addBreadcrumb($this->lang->auth_title, $app->url->module('user', 'index', 'login'), true);
-		
+
 		// Если уже был авторизован, редирект на страницу профиля
 		if (Users::isLogged()) {
 			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
@@ -222,7 +222,7 @@ class ControllerUserIndex extends BaseController {
 		
 		$data = file_get_contents('http://ulogin.ru/token.php?token='.$this->request->post['token'].'&host=' .$app->url->getBaseUrl());
 		$ulogin = json_decode($data, true);
-		
+
 		if (!isset($ulogin['uid'])) {
 			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->ulogin_token_error, 'error');
 			$app->stop();

@@ -52,6 +52,7 @@ class Url {
 	
 	public function module($module='index', $controller='index', $action='index', $param=false, $get=false) {
 		$url = $this->base.'/'.$module.'/'.$controller.'/'.$action;
+		//$url = $this->base.'/?a='.$module.'/'.$controller.'/'.$action;
 		if ($param) $url .= '/'.$param;
 		
 		if ($get) $url .= '&'.http_build_query($get);

@@ -4,6 +4,8 @@ namespace Extension\Module;
 use Core\Library\MVC\BaseController;
 use Core\Library\Application\Application;
 
+use Core\Library\Extension\Extend;
+
 use Core\Library\Site\Entity\User;
 use Core\Library\User\Users;
 
@@ -16,12 +18,10 @@ class ControllerUserProfile extends BaseController {
 		$app = $this->app;
 		$app->template->addBreadcrumb($this->lang->profile_page, $app->url->module('user', 'profile', 'index'), true);
 		$app->template->page_title = $this->lang->profile_page;
-		
-		$this->app->user->autosave = false;
 
 		$this->data['language'] = $this->app->language->getLanguage();
-		$this->data['fields'] = Users::getUserFieldsByGroup($this->app->user->group_id);
-		$this->data['user'] = $this->app->user;
+		$this->data['fields'] = Users::getUserFieldsByGroup($this->user->group_id);
+		$this->data['user'] = $this->user;
 		
 		$this->data['tab'] = 'index';
 		$this->data['tab_content'] = $this->getTab('index');
@@ -43,12 +43,10 @@ class ControllerUserProfile extends BaseController {
 				'message' => $this->lang->edit_profile_success,
 			);
 		}
-		
-		$this->app->user->autosave = false;
 
 		$this->data['language'] = $this->app->language->getLanguage();
-		$this->data['fields'] = Users::getUserFieldsByGroup($this->app->user->group_id);
-		$this->data['user'] = $this->app->user;
+		$this->data['fields'] = Users::getUserFieldsByGroup($this->user->group_id);
+		$this->data['user'] = $this->user;
 		
 		$this->data['tab_content'] = $this->getTab('edit');
 
@@ -93,7 +91,7 @@ class ControllerUserProfile extends BaseController {
 					$valid = false;
 				}
 				
-				if ($post['email'] != $this->app->user->email) {
+				if ($post['email'] != $this->user->email) {
 					$user = new User(array('email'=>$post['email']));
 					if ($user->exists()) {
 						$answer['errors']['email'] = $this->lang->email_exists;
@@ -104,7 +102,7 @@ class ControllerUserProfile extends BaseController {
 				
 				if (!$valid) throw new \Exception($this->lang->invalid_form);
 
-				$user = $this->app->user;
+				$user = $this->user;
 				
 				$user->email = $post['email'];
 				foreach ($fields as $field) {
@@ -157,7 +155,7 @@ class ControllerUserProfile extends BaseController {
 				
 				if (!$valid) throw new \Exception($this->lang->invalid_form);
 
-				$user = $this->app->user;
+				$user = $this->user;
 
 				$user->salt = Users::generateSalt();
 				$password = Users::cryptPassword($post['password'], $user->salt);
@@ -193,7 +191,7 @@ class ControllerUserProfile extends BaseController {
 
 				$avatar_dir = ROOT.'/uploads/avatars/';
 				
-				$user = $this->app->user;
+				$user = $this->user;
 				
 				if (!empty($_FILES['avatar']['name'])) {
 					$avatar = $_FILES['avatar'];
@@ -330,7 +328,7 @@ class ControllerUserProfile extends BaseController {
 
 				if (!$valid) throw new \Exception($this->lang->invalid_form);
 
-				$user = $this->app->user;
+				$user = $this->user;
 				
 				$user->signature = $post['signature'];
 
@@ -349,6 +347,82 @@ class ControllerUserProfile extends BaseController {
 		$this->ActionEdit($answer);
 	}
 	
+	public function ActionSettings() {
+		$app = $this->app;
+		$app->template->addBreadcrumb($this->lang->profile_page, $app->url->module('user', 'profile', 'index'), false);
+		$app->template->addBreadcrumb($this->lang->profile_settings_page, $app->url->module('user', 'profile', 'settings'), true);
+		$app->template->page_title = $this->lang->profile_page;
+		
+		$this->data['user'] = $this->user;
+		
+		$answer = array(
+			//'status' => true,
+			'errors' => array(),
+			'message' => $this->lang->profile_settings_success,
+		);
+		
+		$allow_select_template = (bool)$this->app->config->getOption('user_allow_select_template');
+		$allow_select_language = (bool)$this->app->config->getOption('user_allow_select_language');
+		$allow_select_timezone = (bool)$this->app->config->getOption('user_allow_select_timezone');
+		
+		$this->data['allow_select_language'] = $allow_select_language;
+		$this->data['allow_select_template'] = $allow_select_template;
+		$this->data['allow_select_timezone'] = $allow_select_timezone;
+		
+		$languages = $this->db->getIndexedAll('id', 'SELECT id,name,title FROM '.DB_PREFIX.'extensions WHERE section = "site" AND type='.Extend::EXT_LANGUAGE.' AND enabled = 1');
+		$templates = $this->db->getIndexedAll('id', 'SELECT id,name,title FROM '.DB_PREFIX.'extensions WHERE section = "site" AND type='.Extend::EXT_TEMPLATE.' AND enabled = 1');
+		$this->data['languages'] = $languages;
+		$this->data['templates'] = $templates;
+		
+		$timezones = array();
+	
+		$this->data['time_zone_helper'] = $this->loadHelper('timezones');
+
+		if (isset($this->request->post['process'])) {
+			try {
+				$post = $this->request->post;
+				$valid = true;
+
+				if ($allow_select_template && (empty($post['template']) || !is_numeric($post['template']))) {
+					$answer['errors']['template'] = $this->lang->field_required;
+					$valid = false;
+				}
+
+				if ($allow_select_language && (empty($post['language']) || !is_numeric($post['language']))) {
+					$answer['errors']['language'] = $this->lang->field_required;
+					$valid = false;
+				}
+				
+				if ($allow_select_timezone && empty($post['timezone'])) {
+					$answer['errors']['timezone'] = $this->lang->field_required;
+					$valid = false;
+				}
+
+				if (!$valid) throw new \Exception($this->lang->invalid_form);
+
+				$user = $this->user;
+				
+				if ($allow_select_template) $user->template = (int)$post['template'];
+				if ($allow_select_language) $user->language = (int)$post['language'];
+				if ($allow_select_timezone) $user->timezone = $post['timezone'];
+
+				$user->save();
+				
+				$answer['status'] = true;
+				$this->app->redirectPage($this->app->url->module('user', 'profile', 'settings'), $this->lang->profile_title, $this->lang->profile_settings_success);
+			}
+			catch (\Exception $error) {
+				$answer['status'] = false;
+				$answer['message'] = $error->getMessage();
+				//$answer['errors'][] = $error->getMessage();
+			}
+		}
+		
+		$this->data['tab'] = 'settings';
+		$this->data['tab_content'] = $this->getTab('settings');
+		$this->viewAnswer($answer, 'profile');
+	}
+	
 	public function initialize() {
 		$this->loadLanguage('profile');
 
@@ -359,11 +433,11 @@ class ControllerUserProfile extends BaseController {
 		$app->user->autosave = false;
 		
 		if (!Users::isLogged()) {
-			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_logged, 'error');
+			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->you_not_logged, 'error');
 			$app->stop();
 		}
 		
-		$this->user = $this->app->user;
+		$this->user = new User($this->app->user->id);
 		$this->data['user'] = $this->user;
 		
 		$app->template->addBreadcrumb($this->lang->main_page, $app->url->module('index'), false);

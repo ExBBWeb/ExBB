@@ -1,8 +1,11 @@
 <?php
 $lang->auth_title = 'Вход на сайт';
+$lang->you_not_logged = 'Вы не авторизованы!';
 $lang->profile_title = 'Профиль';
 $lang->profile_page= 'Профиль';
 $lang->profile_edit = 'Редактировать';
+$lang->profile_settings_title = 'Персональные настройки';
+$lang->profile_settings_page = 'Настройки';
 
 $lang->your_login = 'Ваш логин';
 $lang->enter_your_login = 'Введите ваш логин';
@@ -23,6 +26,10 @@ $lang->enter_your_signature = 'Введите вашу подпись';
 $lang->long_signature = 'Количество символов в вашей подписи превышает допустимое!';
 $lang->many_signature_strings = 'Слишком много строк в подписи';
 $lang->edit_signature_success = 'Ваша подпись успешно отредактирована';
+$lang->profile_settings_success = 'Персональные настройки успешно сохранены!';
+$lang->select_timezone = 'Выберите ваш часовой пояс';
+$lang->select_language = 'Выберите язык форума';
+$lang->select_template = 'Выберите шаблон форума';
 
 $lang->menu = 'Меню';
 $lang->menu_profile_view = 'Мой профиль';

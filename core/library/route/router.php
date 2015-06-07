@@ -77,9 +77,13 @@ class Router {
 				break;
 			}
 		}
-		
+
 		$this->vars = $vars;
-		
+
+		if (empty($this->vars['module'])) $this->vars['module'] = 'index';
+		if (empty($this->vars['controller'])) $this->vars['controller'] = 'index';
+		if (empty($this->vars['action'])) $this->vars['action'] = 'index';
+
 		Extend::setAction('router_parsed_url', array('router'=>$this));
     }
 	

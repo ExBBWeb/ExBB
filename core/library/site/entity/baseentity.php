@@ -48,7 +48,7 @@ class BaseEntity {
 	public function exists($field='id') {
 		return isset($this->data[$field]);
 	}
-	
+
 	public function __destruct() {
 		if (!$this->is_saved && count($this->updated) != 0 && $this->autosave) $this->save();
 	}
@@ -124,8 +124,13 @@ class BaseEntity {
 		foreach ($data as $name => $value) $this->updated[$name] = 1;
 	}
 	
+	public function __isset($name) {
+		return isset($this->data[$name]);
+	}
+	
 	public function getData() {
 		return $this->data;
 	}
+	
 }
 ?>

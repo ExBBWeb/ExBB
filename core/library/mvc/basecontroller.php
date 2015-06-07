@@ -87,12 +87,31 @@ class BaseController {
 		if (!file_exists($path)) return false;
 		
 		include $path;
-		$class = 'Extension\Module\Model\Model'.$model;
+		$class = 'Extension\Module\Model\\'.$model;
 
 		if (!class_exists($class, false)) return false;
 		$model = new $class;
 		
-		return new $model;
+		return $model;
+	}
+	
+	/**
+	* Получает и возвращает вспомогательный класс
+	* @param string $hepler название класса
+	* @return object
+	*/
+	public function loadHelper($helper) {
+		$path = $this->path.'/helpers/'.$helper.'.php';
+
+		if (!file_exists($path)) return false;
+		
+		include $path;
+		$class = 'Extension\Module\Helpers\\'.$helper;
+
+		if (!class_exists($class, false)) return false;
+		$helper = new $class;
+		
+		return $helper;
 	}
 	
 	/**
