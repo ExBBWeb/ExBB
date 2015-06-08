@@ -3,7 +3,7 @@
 <div class="panel">
 
 	<div class="header">
-		<h1><?php echo $category['title']; ?></h1>
+		<h1><a href="<?php echo $url->module('index', 'index', 'index', $category['id']); ?>"><?php echo $category['title']; ?></a></h1>
 	</div>
 
 	<div class="body">

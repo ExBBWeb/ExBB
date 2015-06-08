@@ -5,14 +5,11 @@ use Core\Library\MVC\BaseController;
 
 class Controller404Index extends BaseController {
 	public function ActionIndex() {
-		$app = $this->app;
-		$app->template->title = 'Ошибка 404';
-		$app->template->setParam('page_header', 'Ошибка');
+		$this->loadLanguage('index');
+		$this->app->template->page_title = $this->lang->not_found_error_title;
+		$this->app->template->addBreadcrumb($this->lang->main_page, $this->app->url->module('index'), false);
+		$this->app->template->addBreadcrumb($this->lang->not_found_error_title, $this->app->url->module('404'), true);
 		
-		//$app->template->addBreadcrumb('Главная', $app->url->get('index', array(), true));
-		
-		//$this->data['article'] = new Article(array('is_index'=>1));
-
 		$this->view('index');
 	}
 }

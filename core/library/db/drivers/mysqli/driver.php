@@ -41,6 +41,10 @@ class Driver extends BaseDriver {
 		return $this->fetchAssoc($this->query($query));
 	}
 	
+	public function getObject($query) {
+		return $this->fetchObject($this->query($query));
+	}
+	
 	public function getAll($query) {
 		$result = $this->query($query);
 		$array = array();
@@ -84,6 +88,9 @@ class Driver extends BaseDriver {
 		return mysqli_fetch_assoc($result);
 	}
 	
+	public function fetchObject($result) {
+		return mysqli_fetch_object($result);
+	}
 	
 	public function getInsertId() {
 		return mysqli_insert_id($this->link);

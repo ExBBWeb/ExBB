@@ -75,8 +75,6 @@ class Application {
 		$this->db = DB::getInstance();
 		$this->db->setDriver($driver);
 
-		include_once ROOT.'/core/functions/extend.php';
-		
 		Extend::loadPlugins($section);
 		Extend::setAction('before_core_init');
 	}
@@ -146,6 +144,8 @@ class Application {
 		$url = trim($url, '/');		
 		
 		$this->router->setUrl($url);
+		
+		include_once ROOT.'/core/functions/template_adapter.php';
 		
 		Extend::setAction('after_core_init');
 

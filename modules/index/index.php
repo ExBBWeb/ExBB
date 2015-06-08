@@ -17,8 +17,11 @@ class ControllerIndexIndex extends BaseController {
 		$this->loadLanguage('index');
 		$lang = $this->getLanguage();
 
-		$this->app->template->title .= ' - '.$lang->main_page;
-		$this->app->template->addBreadcrumb($lang->main_page, $this->app->url->module('index'), true);
+		$category_id = $this->app->router->getVar('param');
+		$main_current = ($category_id) ? false : true;
+		
+		$this->app->template->page_title = $lang->main_page;
+		$this->app->template->addBreadcrumb($lang->main_page, $this->app->url->module('index'), $main_current);
 		
 		$data = new \StdClass();
 		
@@ -28,9 +31,11 @@ class ControllerIndexIndex extends BaseController {
 		$access = new Access();
 		$forum_access = (bool)$access->getDefaultForumAccess('read');
 
-		$category_id = $this->app->router->getVar('param');
+		
 		if ($category_id) {
 			$where_category = ' WHERE f.category_id='.(int)$category_id;
+			$category_title = (isset($data->categories[$category_id])) ? $data->categories[$category_id]['title'] : '';
+			$this->app->template->addBreadcrumb($category_title, $this->app->url->module('index', 'index', 'index', $category_id), true);
 		}
 		else $where_category = '';
 		

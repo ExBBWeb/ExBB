@@ -46,6 +46,10 @@ class DB {
 		return $this->driver->getRow($query);
 	}
 	
+	public function getObject($query) {
+		return $this->driver->getObject($query);
+	}
+	
 	public function getAll($query) {
 		return $this->driver->getAll($query);
 	}
@@ -64,6 +68,10 @@ class DB {
 	
 	public function fetchArray($result) {
 		return $this->driver->fetchArray($result);
+	}
+	
+	public function fetchObject($result) {
+		return $this->driver->fetchObject($result);
 	}
 	
 	public function getNumRows($result) {

@@ -323,6 +323,11 @@ body {
 	font-size: 18px;
 }
 
+.panel .header a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
 .panel .header h1 {
 	margin: 0px;
 	padding: 3px 3px 3px 10px;
@@ -497,6 +502,135 @@ body {
 
 .forums .icon, .forums .topics, .forums .posts {
 	text-align: center;
+}
+
+.topics .icon {
+	width: 5%;
+	vertical-align: middle;
+}
+
+.topics .title {
+	width: 40%;
+	text-align: left;
+}
+
+.topics .author {
+	width: 15%;
+}
+
+.topics .posts, .topics .views {
+	width: 10%;
+}
+
+.topics .update {
+	width: 20%;
+	text-align: left;
+}
+
+.topics .icon, .topics .views, .topics .posts, .topics .author {
+	text-align: center;
+}
+
+.buttons-right {
+	margin: 10px 0px;
+	text-align: right;
+}
+
+.btn-default {
+  text-shadow: 0 1px 0 #fff;
+  background-image: -webkit-linear-gradient(top, #006699 0%, #216091 100%);
+  background-image:      -o-linear-gradient(top, #006699 0%, #216091 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#006699), to(#216091));
+  background-image:         linear-gradient(to bottom, #006699 0%, #216091 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#216091', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: #006699;
+  color: #FFFFFF;
+}
+.btn-default:hover,
+.btn-default:focus {
+  background-color: #023357;
+  background-position: 0 -15px;
+  color: #FFFFFF;
+}
+.btn-default:active,
+.btn-default.active {
+  background-color: #023357;
+  border-color: #006699;
+   color: #FFFFFF;
+}
+.btn-default.disabled,
+.btn-default:disabled,
+.btn-default[disabled] {
+  background-color: #e0e0e0;
+  background-image: none;
+}
+
+
+.pagination {
+	background: #f2f2f2;
+	border: 2px solid #CCE3F3;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	behavior: url(border-radius.htc);
+	
+	margin: 10px 0px;
+	padding: 2px;
+}
+
+.pagination-list {
+	overflow: hidden;
+	width: 100%;
+	margin: 0px;
+	padding: 5px 10px;
+}
+ 
+.pagination-list li {
+	display: inline-block;
+	list-style: none;
+	list-style-type: none;
+	border-radius: 5px; /*optional*/
+	color: #000;
+}
+
+ 
+.pagination-list a {
+	display: inline-block;
+	padding: 0px 9px;
+	margin-right: 4px;
+	border-radius: 3px;
+	font-size: 14px;
+	text-decoration: none;
+
+	text-shadow: 0 1px 0 #fff;
+	background-image: -webkit-linear-gradient(top, #006699 0%, #216091 100%);
+	background-image:      -o-linear-gradient(top, #006699 0%, #216091 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#006699), to(#216091));
+	background-image:         linear-gradient(to bottom, #006699 0%, #216091 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699', endColorstr='#216091', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	background-repeat: repeat-x;
+	border-color: #006699;
+	color: #FFFFFF;
+}
+
+.pagination-list .current a, .pagination-list a:hover {
+	background: #032942;
+}
+ 
+@media screen and (max-width: 240px) {
+	.pagination-list {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.pagination-list li a {
+		font-size: 12px;
+	}	
 }
 
 #footer {
