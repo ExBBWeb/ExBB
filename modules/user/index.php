@@ -98,6 +98,8 @@ class ControllerUserIndex extends BaseController {
 		
 		if (isset($this->request->post['process'])) {
 			try {
+				foreach ($this->request->post as $var => $value) $this->request->post[$var] = htmlspecialchars($value);
+				
 				$post = $this->request->post;
 				$valid = true;
 				
@@ -160,11 +162,11 @@ class ControllerUserIndex extends BaseController {
 				$user->autosave = false;
 				
 				$user->salt = Users::generateSalt();
-				$password = Users::cryptPassword($this->request->post['password'], $user->salt);
-				$user->login = $this->request->post['login'];
+				$password = Users::cryptPassword($post['password'], $user->salt);
+				$user->login = $post['login'];
 				$user->password = $password;
 				$user->active = 1;
-				$user->email = $this->request->post['email'];
+				$user->email = $post['email'];
 				$user->group_id = $this->config->getOption('default_group_id');
 				//$user->name = $this->request->post['name'];
 				//$user->sirname = $this->request->post['sirname'];
@@ -223,6 +225,8 @@ class ControllerUserIndex extends BaseController {
 		$data = file_get_contents('http://ulogin.ru/token.php?token='.$this->request->post['token'].'&host=' .$app->url->getBaseUrl());
 		$ulogin = json_decode($data, true);
 
+		foreach ($ulogin as $var => $value) $ulogin[$var] = htmlspecialchars($value);
+		
 		if (!isset($ulogin['uid'])) {
 			$app->redirectPage($app->url->module('user', 'profile'), $this->lang->auth_title, $this->lang->ulogin_token_error, 'error');
 			$app->stop();

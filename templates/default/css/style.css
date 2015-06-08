@@ -440,6 +440,65 @@ body {
 	color: #032942;
 }
 
+.table {
+	width:100%;
+	text-align:left;
+	border-collapse:collapse;
+	border-bottom:1px solid #DDD;
+	border-top:1px solid #DDD;
+	margin-bottom:20px;
+}
+.table td {
+	padding:8px 10px;
+	border-right:1px solid #DDD;
+}
+.table tr:hover {
+	background-color:#CCE3F3;
+}
+.table th {
+	padding: 8px 5px;
+	color: #FFFFFF;
+	text-align: left;
+	border-right: 1px solid #DDD;
+	font-weight: normal;
+	background: #006699;
+}
+.table tr {
+	border-left:1px solid #DDD;
+	border-top:1px solid #DDD;
+}
+
+.table th, .table td {
+	border: 1px solid #DDD;
+}
+
+.forums .icon {
+	width: 5%;
+	vertical-align: middle;
+}
+
+.forums .title {
+	width: 60%;
+	text-align: left;
+}
+
+.forums .topics {
+	width: 5%;
+}
+
+.forums .posts {
+	width: 8%;
+}
+
+.forums .update {
+	width: 22%;
+	text-align: left;
+}
+
+.forums .icon, .forums .topics, .forums .posts {
+	text-align: center;
+}
+
 #footer {
 	text-align: center;
 	font-size: 15px;

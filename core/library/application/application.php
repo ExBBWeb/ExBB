@@ -95,7 +95,7 @@ class Application {
 		else {
 			$this->user = new User(0);
 		}
-
+		
 		$this->user->autosave = false;
 		
 		// Получение включенного шаблона
@@ -127,6 +127,7 @@ class Application {
 		
 		//define('LANGUAGE', $this->config->getOption($section.'_language'));
 		define('BASE_URL', $this->config->getOption('url'));
+		define('ROOT_URL', $this->config->getOption('url'));
 		define('TEMPLATE', $template['name']);
 		
 		$this->language = Language::getInstance();

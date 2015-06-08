@@ -74,6 +74,7 @@ class ControllerUserProfile extends BaseController {
 		
 		if (isset($this->request->post['process'])) {
 			try {
+				foreach ($this->request->post as $var => $value) $this->request->post[$var] = htmlspecialchars($value);
 				$post = $this->request->post;
 				$valid = true;
 				
@@ -135,6 +136,7 @@ class ControllerUserProfile extends BaseController {
 		
 		if (isset($this->request->post['process'])) {
 			try {
+				foreach ($this->request->post as $var => $value) $this->request->post[$var] = htmlspecialchars($value);
 				$post = $this->request->post;
 				$valid = true;
 
@@ -186,6 +188,7 @@ class ControllerUserProfile extends BaseController {
 		
 		if (isset($this->request->post['process'])) {
 			try {
+				foreach ($this->request->post as $var => $value) $this->request->post[$var] = htmlspecialchars($value);
 				$post = $this->request->post;
 				$valid = true;
 
@@ -312,6 +315,7 @@ class ControllerUserProfile extends BaseController {
 		
 		if (isset($this->request->post['process'])) {
 			try {
+				if (!$this->app->config->getOption('user_signature_enable_html')) foreach ($this->request->post as $var => $value) $this->request->post[$var] = htmlspecialchars($value);
 				$post = $this->request->post;
 				$valid = true;
 
