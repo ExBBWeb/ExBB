@@ -36,6 +36,8 @@
 		<?php if (isset($answer['errors']['post'])) echo '<span class="help-block">'.$answer['errors']['post'].'</span>'; ?>
 	</div>
 	
+	<?php if ($data->is_poll) include $data->add_poll_form; ?>
+	
 	<button type="submit" class="btn btn-primary"><?php echo $lang->save; ?></button>
 </form>
 	</div>

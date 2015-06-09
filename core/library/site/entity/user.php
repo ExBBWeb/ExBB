@@ -128,9 +128,5 @@ class User extends BaseEntity {
 		return $this->data['avatar'];
 	}
 
-	public function __destruct() {
-		parent::__destruct();
-		//$this->saveFields();
-	}
 }
 ?>

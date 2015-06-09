@@ -7,6 +7,7 @@ use Core\Library\Application\Application;
 class PluginMartikupEditor extends BasePlugin {
 	// Для корректного подключения языков здесь должно находиться название папки плагина
 	protected $plugin = 'markitup_editor';
+	protected $editor_loaded = false;
 	
 	public function run() {
 		// В функции run плагина нельзя загружать язык, но это можно сделать при наступлении события AfterCoreInit
@@ -24,13 +25,15 @@ class PluginMartikupEditor extends BasePlugin {
 		$this->data['attr_class'] = (!empty($options['class'])) ? ' class="'.$options['class'].'"' : '';
 		$this->data['attr_placeholder'] = (!empty($options['placeholder'])) ? ' placeholder="'.$options['placeholder'].'"' : '';
 		
-		$template = Application::getInstance()->template;
-		$template->addJavaScript(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/jquery.markitup.js');
-		$template->addJavaScript(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/sets/bbcode/set.js');
+		if (!$this->editor_loaded) {
+			$template = Application::getInstance()->template;
+			$template->addJavaScript(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/jquery.markitup.js');
+			$template->addJavaScript(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/sets/bbcode/set.js');
 		
-		$template->addStyleSheet(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/skins/markitup/style.css');
-		$template->addStyleSheet(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/sets/bbcode/style.css');
-		
+			$template->addStyleSheet(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/skins/markitup/style.css');
+			$template->addStyleSheet(ROOT_URL.'/plugins/'.$this->plugin.'/markitup/sets/bbcode/style.css');
+			$this->editor_loaded = true;
+		}
 		$this->view('editor');
 	}
 }

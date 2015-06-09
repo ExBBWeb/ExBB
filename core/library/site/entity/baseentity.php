@@ -10,14 +10,14 @@ class BaseEntity {
 	protected $updated = array();
 	protected $is_new = true;
 	protected $is_saved = true;
-	
+
 	protected $table = null;
 	
 	public $autosave = true;
 	
 	public function __construct($entity_id='no', $table=null) {
 		$this->table = $table;
-		
+
 		$db = DB::getInstance();
 		
 		if (is_array($entity_id)) {

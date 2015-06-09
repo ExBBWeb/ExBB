@@ -10,6 +10,8 @@ use Core\Library\Site\Entity\Forum;
 use Core\Library\Site\Entity\Topic;
 use Core\Library\Site\Entity\Post;
 
+use Core\Models\Poll;
+
 class ControllerTopicAdd extends BaseController {
 	protected $is_poll = false;
 	
@@ -42,7 +44,7 @@ class ControllerTopicAdd extends BaseController {
 			$app->redirectPage($app->url->module('users'), $this->lang->add_topic_title, $this->lang->forum_not_exists);
 			$app->stop();
 		}
-		
+
 		$category = $this->db->getObject('SELECT * FROM '.DB_PREFIX.'categories WHERE id='.$forum->category_id);
 		
 		$this->app->template->page_title = $forum->title;
@@ -53,8 +55,6 @@ class ControllerTopicAdd extends BaseController {
 
 		
 		$data = new \StdClass();
-
-		
 		
 		$answer = array(
 			'errors' => array(),
@@ -105,6 +105,38 @@ class ControllerTopicAdd extends BaseController {
 				$valid = false;
 			}
 			
+			// Если создаётся опрос
+			if ($this->is_poll) {
+				if (empty($post['poll_title'])) {
+					$answer['errors']['post'] = $this->lang->field_required;
+					$valid = false;
+				}
+				
+				if (empty($post['poll_variants'])) {
+					$answer['errors']['post'] = $this->lang->field_required;
+					$valid = false;
+				}
+				
+				$poll_variants = explode("\n", $post['poll_variants']);
+
+				foreach ($poll_variants as $id => $val) {
+					if (empty(trim($val))) unset($poll_variants[$id]);
+					else $poll_variants[$id] = trim(htmlentities($val));
+				}
+				
+				if (count($poll_variants) <= 1) {
+					$answer['errors']['poll_variants'] = $this->lang->invalid_field;
+					$valid = false;
+				}
+			
+				$max_poll_variants = (int)$this->app->config->getOption('topic_poll_max_variants');
+				
+				if (count($poll_variants) > $max_poll_variants) {
+					$answer['errors']['poll_variants'] = sprintf($this->lang->many_poll_variants, $max_poll_variants);
+					$valid = false;
+				}
+			}
+			
 			if (!$valid) throw new \Exception($this->lang->invalid_form);
 			
 			// Создаём тему
@@ -122,6 +154,7 @@ class ControllerTopicAdd extends BaseController {
 			$topic->views = 0;
 			$topic->is_important = 0;
 			$topic->is_fixed = 0;
+			$topic->is_poll = $this->is_poll;
 			
 			$topic->save();
 			$topic_id = $topic->id;
@@ -163,8 +196,15 @@ class ControllerTopicAdd extends BaseController {
 			}
 			
 			// Обновляем количество сообщений у пользователя
-			$this->app->user->posts++;
-			$this->app->user->save();
+			if ($this->app->user->id > 0) {
+				$this->app->user->posts++;
+				$this->app->user->save();
+			}
+			
+			if ($this->is_poll) {
+				$poll_model = new Poll();
+				$poll_model->add($topic, $post['poll_title'], $poll_variants);				
+			}
 			
 			$new_topic_url = $this->app->url->module('topic', 'index', 'index', $topic_id);
 			
