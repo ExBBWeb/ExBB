@@ -460,7 +460,7 @@ body {
 .table tr:hover {
 	background-color:#CCE3F3;
 }
-.table th {
+.table th, .table .head td {
 	padding: 8px 5px;
 	color: #FFFFFF;
 	text-align: left;
@@ -468,6 +468,11 @@ body {
 	font-weight: normal;
 	background: #006699;
 }
+
+.table .footer td {
+	background: #DDE9F7;
+}
+
 .table tr {
 	border-left:1px solid #DDD;
 	border-top:1px solid #DDD;
@@ -617,10 +622,30 @@ body {
 	color: #FFFFFF;
 }
 
+.posts .user {
+	width: 20%;
+}
+
+.posts .post {
+	width: 80%;
+}
+
+.posts tr:hover {
+	background: inherit;
+}
+
+.posts .head {
+	
+}
+
+.posts .head td {
+	padding: 4px;
+}
+
 .pagination-list .current a, .pagination-list a:hover {
 	background: #032942;
 }
- 
+/**
 @media screen and (max-width: 240px) {
 	.pagination-list {
 		display: none;
@@ -632,6 +657,12 @@ body {
 		font-size: 12px;
 	}	
 }
+*/
+
+.underline {
+	text-decoration: underline;
+}
+
 
 #footer {
 	text-align: center;

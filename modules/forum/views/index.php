@@ -9,11 +9,11 @@
 		
 		<div class="buttons-right">
 			<?php if ($data->add_topic_access) : ?>
-			<a href="<?php echo $url->module('topic', 'add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> <?php echo $lang->add_topic; ?></a>
+			<a href="<?php echo $url->module('topic', 'add', 'index', $data->forum->id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> <?php echo $lang->add_topic; ?></a>
 			<?php endif; ?>
 			
 			<?php if ($data->add_poll_access) : ?>
-			<a href="<?php echo $url->module('topic', 'add', 'poll'); ?>" class="btn btn-default"><i class="fa fa-bar-chart"></i> <?php echo $lang->add_poll; ?></a>
+			<a href="<?php echo $url->module('topic', 'add', 'poll', $data->forum->id); ?>" class="btn btn-default"><i class="fa fa-bar-chart"></i> <?php echo $lang->add_poll; ?></a>
 			<?php endif; ?>
 		</div>
 	

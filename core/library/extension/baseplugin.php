@@ -13,7 +13,12 @@ class BasePlugin {
 * @var object
 */
 	protected $lang;
-
+	protected $path;
+	
+	public function __construct($path) {
+		$this->path = $path;
+	}
+	
 	public function setHandler($action, $handler, $alias=false) {
 		Extend::setHandler($action, $handler, $alias);
 	}
@@ -26,7 +31,6 @@ class BasePlugin {
 */
 	public function loadLanguage($file) {
 		$app =  Application::getInstance();
-		if (!$app->language) throw new \Exception('LanguageManager is not loaded!');
 
 		$lang = $app->language->getLanguage();
 		$path = BASE.'/plugins/'.$this->plugin.'/language/'.$lang.'/'.$file.'.php';
@@ -35,6 +39,21 @@ class BasePlugin {
 		if ($redefine) $path = $redefine;
 
 		return $app->language->load($this->lang, $path);
+	}
+	
+	
+	public function view($view) {
+		$this->data['lang'] = $this->lang;
+		$template = Application::getInstance()->template;
+		
+		$template->setData($this->data);
+		
+		$path = $this->path.'/views/'.$view.'.php';
+		
+		$redefine = $template->isRedefineView('plugins', $this->plugin, $view);
+		if ($redefine) $path = $redefine;
+
+		$template->render($path, false, false);
 	}
 	
 /**
