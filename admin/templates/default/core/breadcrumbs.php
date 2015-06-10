@@ -1,18 +1,10 @@
 <?php if (count($breadcrumbs) >= 1) : ?>
-<ol class="breadcrumb">
-<?php foreach ($breadcrumbs as $breadcrumb) : ?>
-  <li<?php if ($breadcrumb['active']) echo ' class="active"'; ?>>
-	<?php if ($breadcrumb['url']) : ?>
-		<a href="<?php echo $breadcrumb['url']; ?>">
-	<?php endif; ?>
-	
-	<?php echo $breadcrumb['title']; ?>
-	
-	<?php if ($breadcrumb['url']) : ?>
-	</a>
-	<?php endif; ?>
-
-	</li>
- <?php endforeach; ?>
-</ol>
+<div class="breadcrumbs">
+	<ul class="breadcrumbs-list">
+		<li><i class="fa fa-home"></i></li>
+		<?php foreach ($breadcrumbs as $breadcrumb) : ?>
+		<li><a href="<?php if ($breadcrumb['url']) echo $breadcrumb['url']; else echo '#'; ?>"<?php if ($breadcrumb['current']) echo ' class="current"'; ?>><?php echo $breadcrumb['title']; ?></a><?php if (!$breadcrumb['current']) : ?><i class="fa fa-arrow-circle-right"></i><?php endif; ?></li>
+		<?php endforeach; ?>
+	 </ul>
+</div>
 <?php endif; ?>

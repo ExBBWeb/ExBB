@@ -111,7 +111,10 @@ class Driver extends BaseDriver {
 	}
 	
 	public function error($text) {
-		throw new \Exception($text.': '.mysqli_error($this->link));
+		$backtrace = debug_backtrace();
+		throw new \Exception('<b>Файл:</b> '.$backtrace[3]['file'].'<br>
+		<b>Строка кода:</b> '.$backtrace[3]['line'].'<br>
+		'.$text.': '.mysqli_error($this->link));
 	}
 	
 	public function escape($value) {

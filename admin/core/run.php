@@ -9,7 +9,13 @@ function __autoload($class) {
 use Core\Library\Application\Application;
 
 $app = Application::getInstance();
-$app->run('admin');
+
+try {
+	$app->run('admin');
+}
+catch (\Exception $error) {
+	echo $error->getMessage();
+}
 
 $app->destroy();
 ?>

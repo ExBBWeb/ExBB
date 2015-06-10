@@ -13,8 +13,13 @@ class Access {
 	public function __construct($group_id=null, $user_id=null) {
 		$this->db = DB::getInstance();
 		
+		
+		
 		if (is_null($group_id)) $this->group_id = (int)Application::getInstance()->user->group_id;
+		else $this->group_id = $group_id;
+		
 		if (is_null($user_id)) $this->user_id = (int)Application::getInstance()->user->id;
+		else $this->user_id = $user_id;
 	}
 	
 	public function getDefaultForumAccess($access_name) {
@@ -29,6 +34,12 @@ class Access {
 			$access = $this->db->getRow('SELECT access_value FROM '.DB_PREFIX.'groups_forum_access WHERE group_id='.$this->group_id.' AND forum_id=0 AND access_name="'.$access_name.'"');
 		}
 		
+		return (isset($access['access_value'])) ? $access['access_value'] : false;
+	}
+	
+	public function getEntityAccess($access_name, $entity_name, $entity_id=0) {
+		$access = $this->db->getRow('SELECT access_value FROM '.DB_PREFIX.'groups_access WHERE group_id='.$this->group_id.' AND entity_name="'.$entity_name.'" AND entity_id="'.$entity_id.'" AND access_name="'.$access_name.'"');
+
 		return (isset($access['access_value'])) ? $access['access_value'] : false;
 	}
 }
