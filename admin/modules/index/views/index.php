@@ -45,7 +45,7 @@
             <!-- Account overview -->
             <div class="grid_5">
                 <div class="module">
-                        <h2><span><?php echo $lang->boad_info; ?></span></h2>
+                        <div class="head"><?php echo $lang->boad_info; ?></div>
                         
                         <div class="module-body">
                         

@@ -19,4 +19,10 @@ $lang->exec_kb = 'кб.';
 $lang->exec_second = 'сек.';
 $lang->exec_memory = 'Макс. ОЗУ: ';
 $lang->logout = 'Выход';
+$lang->create = 'Создать';
+$lang->save = 'Сохранить';
+$lang->cancel = 'Отмена';
+$lang->invalid_form = 'Форма заполнена неправильно!';
+$lang->invalid_field = 'Поле заполнено неправильно';
+$lang->field_required = 'Это поле обязательно для заполнения';
 ?>

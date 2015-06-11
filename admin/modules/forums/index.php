@@ -16,12 +16,12 @@ class ControllerForumsIndex extends BaseController {
 		
 		$data->forums = array();
 		
-		$result = $this->db->query('SELECT * FROM '.DB_PREFIX.'forums LIMIT 5');
+		$result = $this->db->query('SELECT * FROM '.DB_PREFIX.'forums');
 		while ($row = $this->db->fetchAssoc($result)) {
 			$data->forums[$row['category_id']][$row['id']] = $row;
 		}
 
-		$data->categories = $this->db->getIndexedAll('id', 'SELECT * FROM '.DB_PREFIX.'categories LIMIT 1');
+		$data->categories = $this->db->getIndexedAll('id', 'SELECT * FROM '.DB_PREFIX.'categories');
 		
 		$this->data['data'] = $data;
 		

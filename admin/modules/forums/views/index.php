@@ -1,7 +1,6 @@
 <div class="module">
 <div class="head">
-
-	<h2><span><?php echo $lang->forums_icons_help; ?></span></h2>
+	<?php echo $lang->forums_icons_help; ?>
 </div> 
 
 	<div class="module-body">
@@ -12,9 +11,9 @@
 	</div>
 </div>
 
-<div class="right">
-	<a href="" class="button">Создать категорию</a>
-	<a href="" class="button">Создать форум</a>
+<div class="buttons-line">
+	<a href="<?php echo $url->module('forums', 'category', 'add'); ?>" class="button"><?php echo $lang->create_category; ?></a>
+	<a href="<?php echo $url->module('forums', 'forum', 'add'); ?>" class="button"><?php echo $lang->create_forum; ?></a>
 </div>
 
 <?php foreach ($data->categories as $category) : ?>
@@ -22,12 +21,12 @@
 <div class="module">
 <div class="head">
 
-	<h2><span><?php echo $category['title']; ?></span></h2>
-	<div class="right">
-		<a href=""><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>" /></a>
-        <a href=""><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
-        <a href=""><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>	
-	</div>
+	<?php echo $category['title']; ?>
+	<span class="right">
+		<a href="<?php echo $url->module('forums', 'category', 'addforum', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>" /></a>
+        <a href="<?php echo $url->module('forums', 'category', 'edit', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
+        <a href="<?php echo $url->module('forums', 'category', 'delete', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>	
+	</span>
 </div> 
 	
     <div class="module-table-body">
@@ -35,7 +34,7 @@
         <table>
         	<thead>
 <tr>
-    <th style="width:5%">#</th>
+    <th style="width:5%" class="align-center">#</th>
     <th style="width:40%"><?php echo $lang->forum_title; ?></th>
     <th style="width:20%"><?php echo $lang->forum_topics; ?></th>
     <th style="width:15%"><?php echo $lang->forum_posts; ?></th>

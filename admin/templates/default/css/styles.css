@@ -96,28 +96,6 @@ h1 a:hover, h1 a:active, h2 a:hover, h2 a:active, h3 a:hover, h3 a:active, h4 a:
 	color:#0063be; 
 	}
 
-
-
-
-/* --------------------  Custom general classes -------------------- */
-
-.align-left    { text-align: left; }
-	
-.align-right   { text-align: right; }
-	
-.align-center  { text-align: center; }
-	
-.align-justify { text-align: justify; }
-	
-.float-left    { float: left; }
-	
-.float-right   { float: right; }
-
-.bottom-spacing { margin-bottom: 20px; }
-
-
-
-
 /* -------------------- Page elements -------------------- */
 
 
@@ -280,43 +258,41 @@ ul#nav li#current a {
 
 div.module { 
 	background: url(../images/module-body-left-bg.gif) no-repeat scroll bottom left; 
-	float: left; 
 	width: 100%; 
 	margin-bottom: 20px; 
-	}
+}
 
 div.module div.module-body { 
 	background: url(../images/module-body-right-bg.gif) no-repeat scroll bottom right; 
-	padding: 20px 3% 20px 3%; float: left; width: 94%;
-	}
+	padding: 15px;
+	width: 100%;
+}
 
 /* Percentage padding in the module dependant on the cell width */
-.grid_1 div.module div.module-body  { padding: 20px 8% 20px 8%; float: left; width: 84%; }
-.grid_2 div.module div.module-body  { padding: 20px 7% 20px 7%; float: left; width: 86%; }
-.grid_3 div.module div.module-body  { padding: 20px 6% 20px 6%; float: left; width: 88%; }
-.grid_4 div.module div.module-body  { padding: 20px 5% 20px 5%; float: left; width: 90%; }
-.grid_5 div.module div.module-body  { padding: 20px 4% 20px 4%; float: left; width: 92%; }
-.grid_6 div.module div.module-body  { padding: 20px 3% 20px 3%; float: left; width: 94%; }
-.grid_7 div.module div.module-body  { padding: 20px 2.75% 20px  2.75%; float: left; width: 94.5%; }
-.grid_8 div.module div.module-body  { padding: 20px 2.5% 20px 2.5%; float: left; width: 95%; }
-.grid_9 div.module div.module-body  { padding: 20px 2.25% 20px 2.25%; float: left; width: 95.5%; }
-.grid_10 div.module div.module-body { padding: 20px 2% 20px 2%; float: left; width: 96%; }
-.grid_11 div.module div.module-body { padding: 20px 1.75% 20px 1.75%; float: left; width: 96.5%; }
-.grid_12 div.module div.module-body { padding: 20px 1.5% 20px 1.5%; float: left; width: 97%; }
+.grid_1 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_2 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_3 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_4 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_5 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_6 div.module div.module-body { padding: 10px;  width: 100%; }
+.grid_7 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_8 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_9 div.module div.module-body  { padding: 10px;  width: 100%; }
+.grid_10 div.module div.module-body { padding: 10px;  width: 100%; }
+.grid_11 div.module div.module-body { padding: 10px;  width: 100%; }
+.grid_12 div.module div.module-body { padding: 10px;  width: 100%; }
 
 
 	
 div.module div.module-table-body { 
 	background: url(../images/module-body-right-bg.gif) no-repeat scroll bottom right; 
 	padding: 0; 
-	float: left; 
 	width: 100%; 
-	}
+}
 
 div.module h2 { 
     /* Sliding right image */
 	display: block;
-	float: left;
 	height: 32px; /* CHANGE THIS VALUE ACCORDING TO IMAGE HEIGHT */
 	margin-right: 0px;
 	padding-right: 0px; /* CHENGE THIS VALUE ACCORDING TO RIGHT IMAGE WIDTH */
@@ -356,10 +332,10 @@ div.module table th {
 	background-color: #eeeeee;
 	color: #444444;
 	padding: 5px;
-	text-align: left;
 	border-right: 1px solid #d9d9d9;
 	border-bottom: 1px solid #d9d9d9;
-	}
+	text-align: left;
+}
 	
 div.module table td {
 	background-color: #ffffff;
@@ -531,7 +507,7 @@ input.submit-gray-hover {
 
 /* --------------------  Boxed notifications -------------------- */
 
-.notification {
+.alert {
 	display: block;
 	padding: 20px 20px 20px 45px;
 	border: 1px solid;
@@ -540,25 +516,25 @@ input.submit-gray-hover {
 	background-position: 20px 20px;
 	}
 
-.n-success {
+.alert-success {
 	background-color: #a3e6bd;
 	border-color: #68d59b;
 	background-image: url(../images/notification-tick.gif);
 	}
 
-.n-information {
+.alert-info {
 	background-color: #9fddea;
 	border-color: #5fceea;
 	background-image: url(../images/notification-information.gif);
 	}
 
-.n-attention {
+.alert-warning {
 	background-color: #f9e497;
 	border-color: #ffcb4f;
 	background-image: url(../images/notification-exclamation.gif);
 	}
 
-.n-error {
+.alert-danger {
 	background-color: #ffc6ca;
 	border-color: #efb9c3;
 	background-image: url(../images/notification-slash.gif);
@@ -672,7 +648,19 @@ h3.mail {
 	padding: 20px;
 }
 
+.align-left    { text-align: left; }
+	
+.align-right   { text-align: right; }
+	
+.align-center  { text-align: center; }
+	
+.align-justify { text-align: justify; }
+	
+.float-left    { float: left; }
+	
+.float-right   { float: right; }
 
+.bottom-spacing { margin-bottom: 20px; }
 
 
 
@@ -769,21 +757,12 @@ a.dashboard-module span {
 	}	
 }
 
-.module .head {
-	position: relative;
-}
-
-.module .head .right {
-	position: absolute;
-	right: 5px;
-	top: 7px;
-}
-
 .module .m-icon {
 	width: 21px;
+	vertical-align: middle;
 }
 
-.button, a.button {
+.button, a.button, .btn {
 	text-decoration:none; text-align:center; 
 	padding:5px 10px; 
 	border:solid 1px #004F72; 
@@ -804,7 +783,7 @@ a.dashboard-module span {
 	box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;  
 }
 
-.button:hover, a.button:hover {
+.button:hover, a.button:hover, .btn:hover {
 	color:#e5ffff; 
 	background-color:#185366; 
 	background-image: -moz-linear-gradient(top, #185366 0%, #096482 100%); 
@@ -819,7 +798,7 @@ a.dashboard-module span {
   
 }
 
-.button:active, a.button:active {
+.button:active, a.button:active, .btn:active {
 	color:#E5FFFF; 
 	background-color:#07303d; 
 	background-image: -moz-linear-gradient(top, #07303d 0%, #054459 100%); 
@@ -831,20 +810,44 @@ a.dashboard-module span {
 	-webkit-box-shadow:0px 0px 2px #bababa;  -moz-box-shadow: 0px 0px 2px #bababa;  box-shadow:0px 0px 2px #bababa;  
 }
 
-.right {
+.buttons-line {
 	margin: 10px 0px;
 	text-align: right;
 }
 
 .module .head {
+	background: #07303d;
+	font-size: 16px;
+	padding: 7px;
+	color: #FFFFFF;
+}
 
-	background: rgba(171,171,171,1);
-	background: -moz-linear-gradient(top, rgba(171,171,171,1) 0%, rgba(171,171,171,1) 8%, rgba(171,171,171,1) 15%, rgba(209,209,209,1) 33%, rgba(219,219,219,1) 73%, rgba(254,254,254,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(171,171,171,1)), color-stop(8%, rgba(171,171,171,1)), color-stop(15%, rgba(171,171,171,1)), color-stop(33%, rgba(209,209,209,1)), color-stop(73%, rgba(219,219,219,1)), color-stop(100%, rgba(254,254,254,1)));
-	background: -webkit-linear-gradient(top, rgba(171,171,171,1) 0%, rgba(171,171,171,1) 8%, rgba(171,171,171,1) 15%, rgba(209,209,209,1) 33%, rgba(219,219,219,1) 73%, rgba(254,254,254,1) 100%);
-	background: -o-linear-gradient(top, rgba(171,171,171,1) 0%, rgba(171,171,171,1) 8%, rgba(171,171,171,1) 15%, rgba(209,209,209,1) 33%, rgba(219,219,219,1) 73%, rgba(254,254,254,1) 100%);
-	background: -ms-linear-gradient(top, rgba(171,171,171,1) 0%, rgba(171,171,171,1) 8%, rgba(171,171,171,1) 15%, rgba(209,209,209,1) 33%, rgba(219,219,219,1) 73%, rgba(254,254,254,1) 100%);
-	background: linear-gradient(to bottom, rgba(171,171,171,1) 0%, rgba(171,171,171,1) 8%, rgba(171,171,171,1) 15%, rgba(209,209,209,1) 33%, rgba(219,219,219,1) 73%, rgba(254,254,254,1) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ababab', endColorstr='#fefefe', GradientType=0 );
+.module .head .right {
+	float: right;
+}
 
+.module-body img {
+	vertical-align: middle;
+}
+
+.form-group {
+	padding: 3px 0px;
+	margin: 5px 0px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+	width: 100%;
+	background: url(../images/input-bg.gif) top left repeat-x #f6f6f6;
+	border: 0;
+	border: 1px solid #cccccc;
+	padding: 5px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+	background: url(../images/input-bg-focus.gif) top left repeat-x #ffffff;
+	border-color: #a9c2d1;
 }
