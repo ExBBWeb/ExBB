@@ -16,9 +16,9 @@ class ControllerForumsIndex extends BaseController {
 		
 		$data->forums = array();
 		
-		$result = $this->db->query('SELECT * FROM '.DB_PREFIX.'forums');
+		$result = $this->db->query('SELECT * FROM '.DB_PREFIX.'forums ORDER BY position ASC');
 		while ($row = $this->db->fetchAssoc($result)) {
-			$data->forums[$row['category_id']][$row['id']] = $row;
+			$data->forums[$row['category_id']][$row['parent_id']][$row['id']] = $row;
 		}
 
 		$data->categories = $this->db->getIndexedAll('id', 'SELECT * FROM '.DB_PREFIX.'categories');

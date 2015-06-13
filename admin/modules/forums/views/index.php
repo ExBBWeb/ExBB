@@ -41,22 +41,8 @@
     <th style="width:20%"></th>
 </tr>
             </thead>
-            <tbody>
-			<?php if (isset($data->forums[$category['id']])) : ?>
-		<?php foreach ($data->forums[$category['id']] as $forum) : ?>	
-<tr>
-    <td class="align-center"><?php echo $forum['id']; ?></td>
-    <td><a href=""><?php echo $forum['title']; ?></a></td>
-    <td><?php echo $forum['topics']; ?></td>
-    <td><?php echo $forum['posts']; ?></td>
-    <td>
-		<a href="<?php echo $url->module('forums', 'forum', 'add', false, array('category'=>$category['id'], 'parent'=>$forum['id'])); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>"  /></a>
-        <a href="<?php echo $url->module('forums', 'forum', 'edit', $forum['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
-        <a href="<?php echo $url->module('forums', 'forum', 'delete', $forum['id']); ?>""><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>
-    </td>
-</tr>
-	<?php endforeach; ?>
-<?php endif; ?>
+		<tbody>
+			<?php viewForums($data, $category['id'], 0, 0, $template, $url); ?>
 		</tbody>
 	</table>
 
@@ -66,3 +52,27 @@
 </div>
 
 <?php endforeach; ?>
+
+<?php
+function viewForums($data, $category_id, $parent_id, $margin=0, $template, $url) {
+?>
+			<?php if (isset($data->forums[$category_id])) : ?>
+		<?php foreach ($data->forums[$category_id][$parent_id] as $forum) : ?>	
+<tr>
+    <td class="align-center"><?php echo $forum['id']; ?></td>
+    <td><a style="margin-left: <?php echo $margin; ?>px" href=""><?php echo $forum['title']; ?></a></td>
+    <td><?php echo $forum['topics']; ?></td>
+    <td><?php echo $forum['posts']; ?></td>
+    <td>
+		<a href="<?php echo $url->module('forums', 'forum', 'edit', $forum['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
+        <a href="<?php echo $url->module('forums', 'forum', 'delete', $forum['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>
+		<?php if ($parent_id == 0) : ?>
+		<a href="<?php echo $url->module('forums', 'forum', 'add', false, array('category'=>$category_id, 'parent'=>$forum['id'])); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>"  /></a>
+        <?php endif; ?>
+	</td>
+</tr>
+<?php if (isset($data->forums[$category_id][$forum['id']])) viewForums($data, $category_id, $forum['id'], $margin+15, $template, $url); ?>
+
+	<?php endforeach; ?>
+<?php endif; ?>
+<?php } ?>

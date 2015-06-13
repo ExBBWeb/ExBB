@@ -20,7 +20,7 @@
 
 	<div class="form-group<?php if (isset($answer['errors']['category_id'])) echo ' has-error'; ?>">
 		<label for="category_id" class="control-label"><?php echo $lang->category_forum; ?></label>
-		<select class="form-control" name="category_id" value="<?php if (isset($forum)) echo $forum->category_id; ?>" id="category_id">
+		<select class="form-control" name="category_id" value="<?php if (isset($forum)) echo $forum->category_id; ?>" id="category_id"<?php if (isset($forum)) echo ' disabled'; ?>>
 		<?php
 		$category = isset($forum) ? $forum->category_id : false;
 		if (isset($category_id)) $category = $category_id;
@@ -37,7 +37,8 @@
 			<?php
 			$parent = isset($forum) ? $forum->parent_id : false;
 			if (isset($parent_id)) $parent = $parent_id;
-			echo $tree_helper->getListForSelectParent($parent); 
+			$current = (isset($forum)) ? $forum->id : false;
+			echo $tree_helper->getListForSelectParent($parent, $current); 
 			?>
 		</select>
 		<?php if (isset($answer['errors']['parent_id'])) echo '<span class="help-block">'.$answer['errors']['parent_id'].'</span>'; ?>

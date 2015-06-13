@@ -26,7 +26,6 @@ class ControllerForumsForum extends BaseController {
 		);
 		
 		$helper = $this->loadHelper('forumstree');
-
 		$this->data['tree_helper'] = $helper;
 		
 		if (isset($this->request->post['process'])) {
@@ -90,7 +89,7 @@ class ControllerForumsForum extends BaseController {
 	}
 	
 	public function ActionEdit() {
-		$this->loadLanguage('category');
+		$this->loadLanguage('forum');
 
 		$app = $this->app;
 		
@@ -98,27 +97,30 @@ class ControllerForumsForum extends BaseController {
 
 		if (!$id) {
 			// Страница редиректа
-			$app->redirectPage($app->url->module('forums'), $this->lang->category, $this->lang->category_not_exists);
+			$app->redirectPage($app->url->module('forums'), $this->lang->forum, $this->lang->forum_not_exists);
 			$app->stop();
 		}
 		
-		$category = new Category($id);
+		$forum = new Forum($id);
 
-		if (!$category->exists()) {
+		if (!$forum->exists()) {
 			// Страница редиректа
-			$app->redirectPage($app->url->module('forums'), $this->lang->category, $this->lang->category_not_exists);
+			$app->redirectPage($app->url->module('forums'), $this->lang->forum, $this->lang->forum_not_exists);
 			$app->stop();
 		}
 	
 		$app->template->page_title = $this->lang->edit_category;
 		$this->app->template->addBreadcrumb($this->lang->main_page, $this->app->url->module('index'), false);
-		$this->app->template->addBreadcrumb($this->lang->categories, $this->app->url->module('forums', 'category'), false);
-		$this->app->template->addBreadcrumb($this->lang->edit_category, $this->app->url->module('forums', 'category', 'edit', $id), true);
+		$this->app->template->addBreadcrumb($this->lang->forums, $this->app->url->module('forums'), false);
+		$this->app->template->addBreadcrumb($this->lang->edit_forum, $this->app->url->module('forums', 'forum', 'edit', $id), true);
 
 		$answer = array(
 			'errors' => array(),
 			'message' => $this->lang->edit_category_success,
 		);
+		
+		$helper = $this->loadHelper('forumstree');
+		$this->data['tree_helper'] = $helper;
 		
 		if (isset($this->request->post['process'])) {
 			$valid = true;
@@ -130,14 +132,31 @@ class ControllerForumsForum extends BaseController {
 					$valid = false;
 				}
 				
+				if ($post['parent_id'] > 0) {
+					$parent = new Forum($post['parent_id']);
+					if (!$parent->exists()) {
+						$answer['errors']['parent_id'] = $this->lang->error_select_parent;
+						$valid = false;
+					}
+						
+					if ($parent->category_id != $forum->category_id) {
+						$answer['errors']['parent_id'] = $this->lang->category_error_select_parent;
+						$valid = false;
+					}
+				}
+				
 				if (!$valid) throw new \Exception($this->lang->invalid_form);
 
-				$category->title = $post['title'];
-				$category->position = (int)$post['position'];
-				$category->save();
+				$forum->title = $post['title'];
+				$forum->position = (int)$post['position'];
+				//$forum->category_id = (int)$post['category_id'];
+				$forum->parent_id = (int)$post['parent_id'];
+				$forum->status_icon = $post['status_icon'];
+				
+				$forum->save();
 				
 				$answer['status'] = true;
-				$this->app->redirectPage($this->app->url->module('forums'), $this->lang->category, $this->lang->edit_category_success);
+				$this->app->redirectPage($this->app->url->module('forums'), $this->lang->forum, $this->lang->edit_forum_success);
 			}
 			catch (\Exception $error) {
 				$answer['status'] = false;
@@ -145,9 +164,9 @@ class ControllerForumsForum extends BaseController {
 			}
 		}
 		
-		$this->data['category'] = $category;
+		$this->data['forum'] = $forum;
 		
-		$this->viewAnswer($answer, 'category/form');
+		$this->viewAnswer($answer, 'forum/form');
 	}
 	
 	public function ActionDelete() {
