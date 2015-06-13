@@ -51,8 +51,8 @@
     <td><?php echo $forum['posts']; ?></td>
     <td>
 		<a href="<?php echo $url->module('forums', 'forum', 'add', false, array('category'=>$category['id'], 'parent'=>$forum['id'])); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>"  /></a>
-        <a href=""><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
-        <a href=""><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>
+        <a href="<?php echo $url->module('forums', 'forum', 'edit', $forum['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
+        <a href="<?php echo $url->module('forums', 'forum', 'delete', $forum['id']); ?>""><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>
     </td>
 </tr>
 	<?php endforeach; ?>

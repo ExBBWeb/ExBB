@@ -24,7 +24,7 @@
 		<?php if (isset($answer['errors']['position'])) echo '<span class="help-block">'.$answer['errors']['position'].'</span>'; ?>
 	</div>
 	
-	<button type="submit" class="btn btn-primary"><?php echo $lang->create; ?></button>
+	<button type="submit" class="btn btn-primary"><?php echo $lang->save; ?></button>
 </form>
 
 	</div>

@@ -151,45 +151,51 @@ class ControllerForumsForum extends BaseController {
 	}
 	
 	public function ActionDelete() {
-		$this->loadLanguage('category');
+		$this->loadLanguage('forum');
 		$app = $this->app;
-		$category_id = (int)$this->app->router->getVar('param');
+		$id = (int)$this->app->router->getVar('param');
 
-		if (!$category_id) {
+		if (!$id) {
 			// Страница редиректа
-			$app->redirectPage($app->url->module('forums'), $this->lang->category, $this->lang->category_not_exists);
+			$app->redirectPage($app->url->module('forums'), $this->lang->forum, $this->lang->forum_not_exists);
 			$app->stop();
 		}
 		
-		$category = new Category($category_id);
+		$forum = new Forum($id);
 
-		if (!$category->exists()) {
+		if (!$forum->exists()) {
 			// Страница редиректа
-			$app->redirectPage($app->url->module('forums'), $this->lang->category, $this->lang->category_not_exists);
+			$app->redirectPage($app->url->module('forums'), $this->lang->forum, $this->lang->forum_not_exists);
 			$app->stop();
 		}
-		
-		
-		// Удаление форумов
-		$this->db->query('DELETE FROM '.DB_PREFIX.'forums WHERE category_id='.$category->id);
+
 		// Удаление тем		
-		$this->db->query('DELETE FROM '.DB_PREFIX.'topics WHERE category_id='.$category->id);
+		$this->db->query('DELETE FROM '.DB_PREFIX.'topics WHERE forum_id='.$forum->id);
 		// Удаление сообщений
-		$this->db->query('DELETE FROM '.DB_PREFIX.'posts WHERE category_id='.$category->id);
+		$this->db->query('DELETE FROM '.DB_PREFIX.'posts WHERE forum_id='.$forum->id);
 		
 		// Удаление опросов
-		$polls = $this->db->getIndexedAll('id', 'SELECT id FROM '.DB_PREFIX.'polls WHERE category_id='.$category_id);
+		$polls = $this->db->getIndexedAll('id', 'SELECT id FROM '.DB_PREFIX.'polls WHERE forum_id='.$id);
 		$keys = array_keys($polls);
 		$keys = array_chunk($keys, 25);
 		foreach ($keys as $ids_array) {
 			$this->db->query('DELETE FROM '.DB_PREFIX.'polls_variants WHERE poll_id IN ('.implode(',', $ids_array).')');
 			$this->db->query('DELETE FROM '.DB_PREFIX.'polls_votes WHERE poll_id IN ('.implode(',', $ids_array).')');
 		}
-		$this->db->query('DELETE FROM '.DB_PREFIX.'polls WHERE category_id='.$category_id);
+		$this->db->query('DELETE FROM '.DB_PREFIX.'polls WHERE category_id='.$id);
 		
-		// Удаление самой категории
-		$category->delete();
-		$app->redirectPage($app->url->module('forums'), $this->lang->category, $this->lang->delete_category_success);
+		if ($forum->parent_id > 0) {
+			$parent = new Forum($forum->parent_id);
+			if ($parent->exists()) {
+				$parent->posts -= $forum->posts;
+				$parent->topics -= $forum->topics;
+				$parent->save();
+			}
+		}
+		
+		// Удаление самого форума
+		$forum->delete();
+		$app->redirectPage($app->url->module('forums'), $this->lang->forum, $this->lang->delete_forum_success);
 	}
 }
 ?>
