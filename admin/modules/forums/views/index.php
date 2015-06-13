@@ -23,7 +23,7 @@
 
 	<?php echo $category['title']; ?>
 	<span class="right">
-		<a href="<?php echo $url->module('forums', 'category', 'addforum', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>" /></a>
+		<a href="<?php echo $url->module('forums', 'forum', 'add', false, array('category'=>$category['id'])); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>" /></a>
         <a href="<?php echo $url->module('forums', 'category', 'edit', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
         <a href="<?php echo $url->module('forums', 'category', 'delete', $category['id']); ?>"><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>	
 	</span>
@@ -50,7 +50,7 @@
     <td><?php echo $forum['topics']; ?></td>
     <td><?php echo $forum['posts']; ?></td>
     <td>
-		<a href=""><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>"  /></a>
+		<a href="<?php echo $url->module('forums', 'forum', 'add', false, array('category'=>$category['id'], 'parent'=>$forum['id'])); ?>"><img class="m-icon" src="<?php echo $template->url('images/add.png'); ?>"  /></a>
         <a href=""><img class="m-icon" src="<?php echo $template->url('images/edit.png'); ?>" /></a>
         <a href=""><img class="m-icon" src="<?php echo $template->url('images/delete.png'); ?>" /></a>
     </td>

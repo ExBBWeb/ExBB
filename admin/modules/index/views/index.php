@@ -1,6 +1,6 @@
 <!-- Dashboard icons -->
             <div class="grid_7">
-            	<a href="<?php echo $url->module('forums', 'add'); ?>" class="dashboard-module">
+            	<a href="<?php echo $url->module('forums', 'forum', 'add'); ?>" class="dashboard-module">
                 	<img src="<?php echo $template->url('images/Crystal_Clear_write.gif'); ?>" width="64" height="64"  />
                 	<span><?php echo $lang->create_forum; ?></span>
                 </a>

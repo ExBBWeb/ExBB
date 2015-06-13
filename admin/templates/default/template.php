@@ -75,8 +75,8 @@ $action = $app->router->getVar('action');
                 <div class="container_12">
                     <div class="grid_12">
                         <ul>
-                            <li><a href="<?php echo $url->module('forums', 'add'); ?>"><?php echo $lang->create_forum; ?></a></li>
-                            <li><a href="<?php echo $url->module('users', 'add'); ?>"><?php echo $lang->create_user; ?></a></li>
+                            <li><a href="<?php echo $url->module('forums', 'forum', 'add'); ?>"><?php echo $lang->create_forum; ?></a></li>
+                            <li><a href="<?php echo $url->module('users', 'user', 'add'); ?>"><?php echo $lang->create_user; ?></a></li>
                             <li><a href="<?php echo $url->module('stats'); ?>"><?php echo $lang->stats; ?></a></li>
                             <li><a href="<?php echo $url->module('extensions', 'install'); ?>"><?php echo $lang->install_extension; ?></a></li>
                             <li><a href="<?php echo $url->module('groups'); ?>"><?php echo $lang->groups; ?></a></li>
