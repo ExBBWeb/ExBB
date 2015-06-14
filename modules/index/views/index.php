@@ -1,5 +1,5 @@
 <?php foreach ($data->categories as $category) : ?>
-<?php if (!empty($data->forums[$category['id']])) : ?>
+<?php if (!empty($data->forums[$category['id']][0])) : ?>
 <div class="panel">
 
 	<div class="header">
@@ -17,10 +17,31 @@
 					<th class="update"><?php echo $lang->forum_update; ?></th>
 				</tr>
 			</thead>
-		<?php foreach ($data->forums[$category['id']] as $forum) : ?>
+		<?php foreach ($data->forums[$category['id']][0] as $forum) : ?>
 			<tr>
 				<td class="icon"><img src="<?php echo $forum['icon']; ?>"></td>
-				<td class="title"><a href="<?php echo $url->module('forum', 'index', 'index', $forum['id']); ?>"><?php echo $forum['title']; ?></a></td>
+				<td class="title"><a href="<?php echo $url->module('forum', 'index', 'index', $forum['id']); ?>"><?php echo $forum['title']; ?></a>
+				
+				<?php if (isset($data->forums[$category['id']][$forum['id']])) : ?>
+				<p class="sub-head"><?php echo $lang->subforums; ?></p>
+				<?php foreach ($data->forums[$category['id']][$forum['id']] as $sub) : ?>
+				<p class="sub"><img src="<?php echo $forum['icon']; ?>">
+				<a href="<?php echo $url->module('forum', 'index', 'index', $sub['id']); ?>"><?php echo $sub['title']; ?></a>
+				(<?php echo $lang->sub_forum_topics; ?> <?php echo $sub['topics']; ?>, 
+				<?php echo $lang->sub_forum_posts; ?> <?php echo $sub['posts']; ?>,
+				
+				<?php echo $lang->sub_forum_update; ?>
+				<?php if (!empty($sub['update_date'])) : ?>
+					<a href="<?php echo $url->module('topic', 'index', 'index', $sub['updated_topic_id']); ?>"><?php echo $sub['topic_title']; ?></a>
+				<?php else : ?>
+					<?php echo $lang->no_update_subforum; ?>
+				<?php endif; ?>
+				)</p>
+				<?php endforeach; ?>
+				
+				<?php endif; ?>
+				
+				</td>
 				<td class="topics"><?php echo $forum['topics']; ?></td>
 				<td class="posts"><?php echo $forum['posts']; ?></td>
 				<td class="update">

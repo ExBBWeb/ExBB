@@ -1,4 +1,4 @@
-<?php if (!empty($data->posts)) : ?>
+
 <div class="panel">
 
 	<div class="header">
@@ -6,7 +6,6 @@
 	</div>
 
 	<div class="body">
-		
 		<div class="buttons-right">
 			<?php if ($data->add_topic_access) : ?>
 			<a href="<?php echo $url->module('topic', 'add', 'index', $data->topic->forum_id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> <?php echo $lang->add_topic; ?></a>
@@ -16,7 +15,7 @@
 			<a href="<?php echo $url->module('topic', 'add', 'poll', $data->topic->forum_id); ?>" class="btn btn-default"><i class="fa fa-bar-chart"></i> <?php echo $lang->add_poll; ?></a>
 			<?php endif; ?>
 		</div>
-	
+<?php if (!empty($data->posts)) : ?>
 		<table class="table posts">
 		<?php foreach ($data->posts as $post) : ?>
 			<?php $author = $data->authors[$post['author_id']]; ?>
@@ -43,7 +42,6 @@
 		</table>
 		
 		<?php pagination($data->pages, $url->module('topic', 'index', 'index', $data->topic->id, array('page'=>'[page]')), $data->page); ?>
+		<?php endif; ?>
 	</div>
-
 </div>
-<?php endif; ?>

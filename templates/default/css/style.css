@@ -509,6 +509,18 @@ body {
 	text-align: center;
 }
 
+.forums .sub-head {
+	margin: 5px 0px 0px 0px;
+}
+
+.forums .sub {
+	margin: 0px;
+}
+
+.forums .sub img {
+	height: 10px;
+}
+
 .topics .icon {
 	width: 5%;
 	vertical-align: middle;

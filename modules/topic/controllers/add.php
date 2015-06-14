@@ -191,6 +191,8 @@ class ControllerTopicAdd extends BaseController {
 				if ($parent->exists()) {
 					$parent->updated_topic_id = $topic_id;
 					$parent->updated_post_id = $post_id;
+					$parent->posts++;
+					$parent->topics++;
 					$parent->save();
 				}
 			}

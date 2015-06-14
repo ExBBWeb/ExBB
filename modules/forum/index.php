@@ -96,6 +96,46 @@ class ControllerForumIndex extends BaseController {
 		$data->add_topic_access = (bool)$access->getForumAccess($forum_id, 'add_topic');
 		$data->add_poll_access = (bool)$access->getForumAccess($forum_id, 'add_poll');
 
+		$result = $this->db->query('SELECT f.id,f.category_id, f.parent_id, f.title,f.posts,f.topics, f.updated_topic_id, f.updated_post_id, f.status_icon,
+		p.created_date as update_date,p.author_id,p.author_login,
+		t.title as topic_title,
+		ac.access_value
+
+		FROM '.DB_PREFIX.'forums f
+		LEFT JOIN '.DB_PREFIX.'posts p  ON (p.id=f.updated_post_id)
+		LEFT JOIN '.DB_PREFIX.'topics t  ON (t.id=f.updated_topic_id)
+		LEFT JOIN '.DB_PREFIX.'groups_forum_access ac ON (ac.group_id='.(int)$this->app->user->group_id.' AND ac.forum_id=f.id AND ac.access_name="read")
+		
+		WHERE f.parent_id='.$forum_id.'
+		ORDER BY f.position ASC
+		');
+		
+		$access = new Access();
+		$forum_access = (bool)$access->getDefaultForumAccess('read');
+		
+		$data->subforums = array();
+		while ($row = $this->db->fetchAssoc($result)) { 
+			if (is_null($row['access_value'])) {
+				if (!$forum_access) continue;
+			}
+			else  {
+				if ($row['access_value'] == false) continue;
+			}
+
+			$row['readed'] = true;
+			
+			if (empty($row['status_icon'])) $row['status_icon'] = $default_icons;
+			
+			if ($row['readed']) {
+				$row['icon'] = $icons_path.'/'.$row['status_icon'].'_read.png';
+			}
+			else{
+				$row['icon'] = $icons_path.'/'.$row['status_icon'].'_unread.png';
+			}
+		
+			$data->subforums[$row['id']] = $row;
+		}
+		
 		Extend::setAction('forum_page_prepare_data', $data);
 		
 		$this->data['data'] = $data;

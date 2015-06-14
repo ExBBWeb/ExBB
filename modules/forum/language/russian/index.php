@@ -10,4 +10,10 @@ $lang->update_date = 'Дата:';
 
 $lang->add_topic = 'Создать тему';
 $lang->add_poll = 'Создать опрос';
+$lang->subforums = 'Подфорумы';
+
+$lang->forum_title = 'Название';
+$lang->forum_topics = 'Тем';
+$lang->forum_posts = 'Сообщений';
+$lang->forum_update = 'Обновление';
 ?>

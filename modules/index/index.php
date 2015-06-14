@@ -39,7 +39,7 @@ class ControllerIndexIndex extends BaseController {
 		}
 		else $where_category = '';
 		
-		$result = $this->db->query('SELECT f.id,f.category_id, f.title,f.posts,f.topics, f.updated_topic_id, f.updated_post_id, f.status_icon,
+		$result = $this->db->query('SELECT f.id,f.category_id, f.parent_id, f.title,f.posts,f.topics, f.updated_topic_id, f.updated_post_id, f.status_icon,
 		p.created_date as update_date,p.author_id,p.author_login,
 		t.title as topic_title,
 		ac.access_value
@@ -78,7 +78,7 @@ class ControllerIndexIndex extends BaseController {
 				$row['icon'] = $icons_path.'/'.$row['status_icon'].'_unread.png';
 			}
 			
-			$data->forums[$row['category_id']][$row['id']] = $row;
+			$data->forums[$row['category_id']][$row['parent_id']][$row['id']] = $row;
 		}
 
 		Extend::setAction('index_page_prepare_data', $data);
